@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:toolpor_expense/presentation/resources/app_colors.dart';
 import 'package:toolpor_expense/presentation/resources/app_icons.dart';
 import 'package:toolpor_expense/presentation/resources/app_styles.dart';
@@ -9,10 +10,27 @@ class WItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 10),
-      decoration:  BoxDecoration(color: AppColors.itemColor,borderRadius: BorderRadius.circular(12.0)),
-      child: Padding(
+    return Slidable(
+      startActionPane: ActionPane(
+        motion: const ScrollMotion(),
+        children: [
+          SlidableAction(
+            backgroundColor: AppColors.mainColor,
+            icon: Icons.delete,
+            label: 'Delete',
+            onPressed: (BuildContext context) {},
+          ),
+          SlidableAction(
+            backgroundColor: AppColors.mainColor,
+            label: 'Edit',
+            icon: Icons.edit,
+            onPressed: (BuildContext context) {},
+          ),
+        ],
+      ),
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 10),
+        decoration:  BoxDecoration(color: AppColors.itemColor,borderRadius: BorderRadius.circular(12.0),),
         padding: const EdgeInsets.all(12.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

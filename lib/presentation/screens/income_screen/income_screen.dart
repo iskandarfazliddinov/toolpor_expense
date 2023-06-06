@@ -5,6 +5,7 @@ import 'package:toolpor_expense/presentation/resources/app_icons.dart';
 import 'package:toolpor_expense/presentation/resources/app_styles.dart';
 import 'package:toolpor_expense/presentation/widgets/w_calendar.dart';
 import 'package:toolpor_expense/presentation/widgets/w_items.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class IncomeScreen extends StatefulWidget {
   const IncomeScreen({super.key});
@@ -14,6 +15,17 @@ class IncomeScreen extends StatefulWidget {
 }
 
 class _IncomeScreenState extends State<IncomeScreen> {
+  List<WItems> users = [
+    WItems(),
+    WItems(),
+    WItems(),
+    WItems(),
+    WItems(),
+    WItems(),
+    WItems(),
+    WItems(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +35,8 @@ class _IncomeScreenState extends State<IncomeScreen> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 20.0,right: 20.0,top: 20.0),
+              padding:
+                  const EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -71,7 +84,7 @@ class _IncomeScreenState extends State<IncomeScreen> {
             child: SvgPicture.asset(
               AppIcons.export,
             ),
-            onTap: (){},
+            onTap: () {},
           ),
           const SizedBox(
             width: 20,
@@ -79,29 +92,35 @@ class _IncomeScreenState extends State<IncomeScreen> {
         ],
         backgroundColor: AppColors.backgroundColor,
       );
+
   _getItems() => Container(
-      decoration: const BoxDecoration(
-        color: AppColors.mainColor,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(16.0),
-          topRight: Radius.circular(16.0),
+        decoration: const BoxDecoration(
+          color: AppColors.mainColor,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(16.0),
+            topRight: Radius.circular(16.0),
+          ),
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Padding(
-            padding: EdgeInsets.only(top: 20.0),
-            child: Divider(color: Color(0xFFB2B3B7),endIndent: 180,thickness: 2,indent: 180),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Text("Oxirgi xarajatlar",style: AppStyles.getItems(),),
-          ),
-          ...List.generate(
-            10,
-                (index) => const WItems(),
-          ),
-        ],
-      ));
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(top: 20.0),
+              child: Divider(
+                  color: Color(0xFFB2B3B7),
+                  endIndent: 180,
+                  thickness: 2,
+                  indent: 180),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Text(
+                "Oxirgi xarajatlar",
+                style: AppStyles.getItems(),
+              ),
+            ),
+            ...List.generate(10, (index) => const WItems())
+          ],
+        ),
+      );
 }
