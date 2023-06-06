@@ -8,4 +8,6 @@ abstract class AppIcons{
   static const String apple = "$pathIcon/apple.svg";
   static const String edit = "$pathIcon/edit.svg";
   static const String trash = "$pathIcon/trash.svg";
+  static const String apple_elips = "$pathIcon/apple_elips.svg";
+  static const String calendar = "$pathIcon/calendar.svg";
 }

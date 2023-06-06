@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:toolpor_expense/presentation/resources/app_colors.dart';
 import 'package:toolpor_expense/presentation/resources/app_icons.dart';
 import 'package:toolpor_expense/presentation/resources/app_styles.dart';
+import 'package:toolpor_expense/presentation/screens/item_detail/item_detail.dart';
 import 'package:toolpor_expense/presentation/widgets/w_calendar.dart';
 import 'package:toolpor_expense/presentation/widgets/w_items.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -15,17 +16,6 @@ class IncomeScreen extends StatefulWidget {
 }
 
 class _IncomeScreenState extends State<IncomeScreen> {
-  List<WItems> users = [
-    WItems(),
-    WItems(),
-    WItems(),
-    WItems(),
-    WItems(),
-    WItems(),
-    WItems(),
-    WItems(),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,7 +109,19 @@ class _IncomeScreenState extends State<IncomeScreen> {
                 style: AppStyles.getItems(),
               ),
             ),
-            ...List.generate(10, (index) => const WItems())
+            ...List.generate(
+              10,
+              (index) => WItems(
+                onTab: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ItemDetail(),
+                    ),
+                  );
+                },
+              ),
+            )
           ],
         ),
       );
