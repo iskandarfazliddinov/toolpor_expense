@@ -16,6 +16,22 @@ class IncomeScreen extends StatefulWidget {
 }
 
 class _IncomeScreenState extends State<IncomeScreen> {
+  DateTime _dateTimeOld = DateTime.now();
+  DateTime _dateTimeEnd = DateTime.now();
+
+  void _showDataPicer() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2025),
+    ).then((value) => {
+          setState(() {
+            _dateTimeOld = value!;
+          })
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,11 +46,18 @@ class _IncomeScreenState extends State<IncomeScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  WCalendar(data: "01.02.2023",
+                  WCalendar(
+                      data:
+                          "${_dateTimeOld.day}.${_dateTimeOld.month}.${_dateTimeOld.year}",
                       onTab: () {
-                  }),
-                  WCalendar(data: "18.02.2023", onTab: () {
-                  }),
+                        _showDataPicer();
+                      }),
+                  WCalendar(
+                      data:
+                          "${_dateTimeEnd.day}.${_dateTimeEnd.month}.${_dateTimeEnd.year}",
+                      onTab: () {
+                        _showDataPicer();
+                      }),
                 ],
               ),
             ),
@@ -68,8 +91,7 @@ class _IncomeScreenState extends State<IncomeScreen> {
         ),
         leading: IconButton(
           icon: SvgPicture.asset(AppIcons.arrowLeft),
-          onPressed: () {
-          },
+          onPressed: () {},
         ),
         actions: <Widget>[
           GestureDetector(
@@ -77,6 +99,14 @@ class _IncomeScreenState extends State<IncomeScreen> {
               AppIcons.export,
             ),
             onTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext contexts) {
+                  return const WDialog(
+                    text: 'Ma’lumotlarni export qilishni\nxohlaysizmi?',
+                  );
+                },
+              );
             },
           ),
           const SizedBox(
@@ -122,11 +152,11 @@ class _IncomeScreenState extends State<IncomeScreen> {
                       builder: (context) => const ItemDetail(),
                     ),
                   );
-                }, contexts: context,
+                },
+                contexts: context,
               ),
             )
           ],
         ),
       );
-
 }
