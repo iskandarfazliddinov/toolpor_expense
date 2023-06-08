@@ -8,8 +8,9 @@ class WDetailItems extends StatelessWidget {
   final String subTitle;
   final String title;
   final String appIcons;
+  final String iconDow;
 
-  const WDetailItems({required this.subTitle,required this.title,required this.appIcons,super.key});
+  const WDetailItems({required this.subTitle,required this.title,required this.appIcons,required this.iconDow,super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,15 +38,24 @@ class WDetailItems extends StatelessWidget {
             ),
           ),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Padding(
-                padding: EdgeInsets.only(left: appIcons == '' ? 0 : 20.0),
-                child: SvgPicture.asset(appIcons),
+              Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: appIcons == '' ? 0 : 20.0),
+                    child: SvgPicture.asset(appIcons),
+                  ),
+                  const SizedBox(width: 12),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16.0,horizontal: appIcons == '' ? 20 : 0),
+                    child: Text(title,style: AppStyles.getItems(),),
+                  ),
+                ],
               ),
-              const SizedBox(width: 12),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 16.0,horizontal: appIcons == '' ? 20 : 0),
-                child: Text(title,style: AppStyles.getItems(),),
+                padding: const EdgeInsets.only(right: 16),
+                child: SvgPicture.asset(iconDow)
               ),
             ],
           ),

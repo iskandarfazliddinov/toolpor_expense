@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toolpor_expense/presentation/screens/edit_item/edit_item.dart';
 import 'package:toolpor_expense/presentation/screens/income_screen/income_screen.dart';
 import 'package:toolpor_expense/presentation/screens/item_detail/item_detail.dart';
 
@@ -11,9 +12,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: IncomeScreen(),
+      home: const IncomeScreen(),
+      theme: ThemeData(brightness: Brightness.dark),
     );
   }
 }

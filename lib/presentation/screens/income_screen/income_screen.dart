@@ -5,8 +5,8 @@ import 'package:toolpor_expense/presentation/resources/app_icons.dart';
 import 'package:toolpor_expense/presentation/resources/app_styles.dart';
 import 'package:toolpor_expense/presentation/screens/item_detail/item_detail.dart';
 import 'package:toolpor_expense/presentation/widgets/w_calendar.dart';
+import 'package:toolpor_expense/presentation/widgets/w_dialog.dart';
 import 'package:toolpor_expense/presentation/widgets/w_items.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 
 class IncomeScreen extends StatefulWidget {
   const IncomeScreen({super.key});
@@ -30,8 +30,11 @@ class _IncomeScreenState extends State<IncomeScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  WCalendar(data: "01.02.2023", onTab: () {}),
-                  WCalendar(data: "18.02.2023", onTab: () {}),
+                  WCalendar(data: "01.02.2023",
+                      onTab: () {
+                  }),
+                  WCalendar(data: "18.02.2023", onTab: () {
+                  }),
                 ],
               ),
             ),
@@ -66,7 +69,6 @@ class _IncomeScreenState extends State<IncomeScreen> {
         leading: IconButton(
           icon: SvgPicture.asset(AppIcons.arrowLeft),
           onPressed: () {
-            Navigator.pop(context);
           },
         ),
         actions: <Widget>[
@@ -74,7 +76,8 @@ class _IncomeScreenState extends State<IncomeScreen> {
             child: SvgPicture.asset(
               AppIcons.export,
             ),
-            onTap: () {},
+            onTap: () {
+            },
           ),
           const SizedBox(
             width: 20,
@@ -119,10 +122,11 @@ class _IncomeScreenState extends State<IncomeScreen> {
                       builder: (context) => const ItemDetail(),
                     ),
                   );
-                },
+                }, contexts: context,
               ),
             )
           ],
         ),
       );
+
 }

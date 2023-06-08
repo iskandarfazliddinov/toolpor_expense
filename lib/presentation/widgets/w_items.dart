@@ -4,10 +4,14 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:toolpor_expense/presentation/resources/app_colors.dart';
 import 'package:toolpor_expense/presentation/resources/app_icons.dart';
 import 'package:toolpor_expense/presentation/resources/app_styles.dart';
+import 'package:toolpor_expense/presentation/screens/edit_item/edit_item.dart';
+import 'package:toolpor_expense/presentation/widgets/w_dialog.dart';
 
 class WItems extends StatelessWidget {
   final GestureTapCallback onTab;
-  const WItems({required this.onTab,super.key});
+  final BuildContext contexts;
+
+  const WItems({required this.onTab, required this.contexts, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,21 +23,37 @@ class WItems extends StatelessWidget {
             backgroundColor: AppColors.mainColor,
             icon: Icons.delete,
             label: 'Delete',
-            onPressed: (BuildContext context) {},
+            onPressed: (BuildContext context) {
+              showDialog(
+                context: context,
+                builder: (BuildContext contexts) {
+                  return const WDialog(text: 'Haqiqatan ham bu elementni\no’chirib tashlamoqchimisiz?',);
+                },
+              );
+            },
           ),
           SlidableAction(
             backgroundColor: AppColors.mainColor,
             label: 'Edit',
             icon: Icons.edit,
-            onPressed: (BuildContext context) {},
+            onPressed: (BuildContext context) {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const EditItem(),
+                ),
+              );
+            },
           ),
         ],
       ),
       child: GestureDetector(
         onTap: onTab,
         child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 10),
-          decoration:  BoxDecoration(color: AppColors.itemColor,borderRadius: BorderRadius.circular(12.0),),
+          margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+          decoration: BoxDecoration(
+            color: AppColors.itemColor,
+            borderRadius: BorderRadius.circular(12.0),
+          ),
           padding: const EdgeInsets.all(12.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
