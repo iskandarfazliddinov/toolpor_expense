@@ -27,7 +27,7 @@ class WItems extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (BuildContext contexts) {
-                  return const WDialog(text: 'Haqiqatan ham bu elementni\no’chirib tashlamoqchimisiz?',);
+                  return  const WDialog(text: 'Haqiqatan ham bu elementni\no’chirib tashlamoqchimisiz?', dialogText: 'O’chirish', dColor: Color(0xFFCC2D63),);
                 },
               );
             },

@@ -4,8 +4,10 @@ import '../resources/app_styles.dart';
 
 class WDialog extends StatelessWidget {
   final String text;
+  final String dialogText;
+  final Color dColor;
 
-  const WDialog({required this.text,super.key});
+  const WDialog({required this.text,required this.dialogText,required this.dColor,super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -48,14 +50,14 @@ class WDialog extends StatelessWidget {
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                      color: const Color(0xFFCC2D63),
+                      color: dColor,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 8.0, horizontal: 20.0),
                       child: Text(
-                        "O’chirish",
+                        dialogText,
                         style: AppStyles.getItems(),
                       ),
                     ),

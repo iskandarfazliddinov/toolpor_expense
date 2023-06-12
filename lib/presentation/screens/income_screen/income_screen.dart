@@ -16,10 +16,10 @@ class IncomeScreen extends StatefulWidget {
 }
 
 class _IncomeScreenState extends State<IncomeScreen> {
-  DateTime _dateTimeOld = DateTime.now();
-  DateTime _dateTimeEnd = DateTime.now();
+   DateTime _dateTimeOld = DateTime.now();
+   DateTime _dateTimeEnd = DateTime.now();
 
-  void _showDataPicer() {
+  void _showDataPicer({required bool check}) {
     showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -27,7 +27,11 @@ class _IncomeScreenState extends State<IncomeScreen> {
       lastDate: DateTime(2025),
     ).then((value) => {
           setState(() {
-            _dateTimeOld = value!;
+             if(check){
+               _dateTimeOld = value!;
+             }else{
+               _dateTimeEnd = value!;
+             }
           })
         });
   }
@@ -50,13 +54,13 @@ class _IncomeScreenState extends State<IncomeScreen> {
                       data:
                           "${_dateTimeOld.day}.${_dateTimeOld.month}.${_dateTimeOld.year}",
                       onTab: () {
-                        _showDataPicer();
+                        _showDataPicer(check: true);
                       }),
                   WCalendar(
                       data:
                           "${_dateTimeEnd.day}.${_dateTimeEnd.month}.${_dateTimeEnd.year}",
                       onTab: () {
-                        _showDataPicer();
+                        _showDataPicer(check: false);
                       }),
                 ],
               ),
@@ -103,7 +107,7 @@ class _IncomeScreenState extends State<IncomeScreen> {
                 context: context,
                 builder: (BuildContext contexts) {
                   return const WDialog(
-                    text: 'Ma’lumotlarni export qilishni\nxohlaysizmi?',
+                    text: 'Ma’lumotlarni export qilishni\nxohlaysizmi?', dialogText: 'Export qilish', dColor: Color(0xFF93EDC7),
                   );
                 },
               );
