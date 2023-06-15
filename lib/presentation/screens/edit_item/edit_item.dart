@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:toolpor_expense/presentation/resources/app_colors.dart';
 import 'package:toolpor_expense/presentation/resources/app_styles.dart';
+import 'package:toolpor_expense/presentation/widgets/w_calendar.dart';
 import 'package:toolpor_expense/presentation/widgets/w_detail_items.dart';
 import 'package:toolpor_expense/presentation/widgets/w_edit_item.dart';
 
@@ -15,9 +16,22 @@ class EditItem extends StatefulWidget {
 }
 
 class _EditItemState extends State<EditItem> {
+  DateTime _dateTime = DateTime.now();
   TextEditingController titleController = TextEditingController(text: "Bozorlik");
   TextEditingController descriptionController = TextEditingController(text: "Bolamni tug’ilgan kuniga bozorlik qilgandik.");
 
+  void _showDataPicer() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2025),
+    ).then((value) => {
+      setState(() {
+          _dateTime = value!;
+      })
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +67,24 @@ class _EditItemState extends State<EditItem> {
                 ),
                 const SizedBox(height: 16,),
                 WEditItem(subTitle: "Sarlavha", controllers: titleController),
-                const WDetailItems(subTitle: "Kategoriya", title: "Bozorlik", appIcons: AppIcons.apple_elips, iconDow: AppIcons.down,),
-                const WDetailItems(subTitle: "Sana", title: "18.02.2023", appIcons: AppIcons.calendar, iconDow: AppIcons.down,),
+                WDetailItems(
+                  subTitle: "Kategoriya",
+                  title: "Bozorlik",
+                  appIcons: AppIcons.apple_elips,
+                  iconDow: AppIcons.down,
+                  onTab: () {
+
+                  },
+                ),
+                WDetailItems(
+                  subTitle: "Sana",
+                  title: "${_dateTime.day}.${_dateTime.month}.${_dateTime.year}",
+                  appIcons: AppIcons.calendar,
+                  iconDow: AppIcons.down,
+                  onTab: () {
+                    _showDataPicer();
+                },
+                ),
                 WEditItem(subTitle: "Tavsifi", controllers: descriptionController),
               ],
             ),

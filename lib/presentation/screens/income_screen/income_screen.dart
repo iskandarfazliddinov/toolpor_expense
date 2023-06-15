@@ -1,3 +1,4 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:toolpor_expense/presentation/resources/app_colors.dart';
@@ -7,6 +8,7 @@ import 'package:toolpor_expense/presentation/screens/item_detail/item_detail.dar
 import 'package:toolpor_expense/presentation/widgets/w_calendar.dart';
 import 'package:toolpor_expense/presentation/widgets/w_dialog.dart';
 import 'package:toolpor_expense/presentation/widgets/w_items.dart';
+import 'package:toolpor_expense/presentation/widgets/w_lineChart.dart';
 
 class IncomeScreen extends StatefulWidget {
   const IncomeScreen({super.key});
@@ -16,8 +18,8 @@ class IncomeScreen extends StatefulWidget {
 }
 
 class _IncomeScreenState extends State<IncomeScreen> {
-   DateTime _dateTimeOld = DateTime.now();
-   DateTime _dateTimeEnd = DateTime.now();
+  DateTime _dateTimeOld = DateTime.now();
+  DateTime _dateTimeEnd = DateTime.now();
 
   void _showDataPicer({required bool check}) {
     showDatePicker(
@@ -27,11 +29,11 @@ class _IncomeScreenState extends State<IncomeScreen> {
       lastDate: DateTime(2025),
     ).then((value) => {
           setState(() {
-             if(check){
-               _dateTimeOld = value!;
-             }else{
-               _dateTimeEnd = value!;
-             }
+            if (check) {
+              _dateTimeOld = value!;
+            } else {
+              _dateTimeEnd = value!;
+            }
           })
         });
   }
@@ -69,10 +71,39 @@ class _IncomeScreenState extends State<IncomeScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Container(
                 margin: const EdgeInsets.symmetric(vertical: 28.0),
-                height: 280,
                 decoration: BoxDecoration(
                   color: AppColors.mainColor,
                   borderRadius: BorderRadius.circular(16.0),
+                ),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 22, horizontal: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Statistika",
+                            style: AppStyles.getItems(),
+                          ),
+                          const Text(
+                            "+5 250 000 so’m",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xFF93EDC7),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 400,
+                      width: 400,
+                      child: WLineChart() ,
+                    )
+                  ],
                 ),
               ),
             ),
@@ -107,7 +138,9 @@ class _IncomeScreenState extends State<IncomeScreen> {
                 context: context,
                 builder: (BuildContext contexts) {
                   return const WDialog(
-                    text: 'Ma’lumotlarni export qilishni\nxohlaysizmi?', dialogText: 'Export qilish', dColor: Color(0xFF93EDC7),
+                    text: 'Ma’lumotlarni export qilishni\nxohlaysizmi?',
+                    dialogText: 'Export qilish',
+                    dColor: Color(0xFF93EDC7),
                   );
                 },
               );

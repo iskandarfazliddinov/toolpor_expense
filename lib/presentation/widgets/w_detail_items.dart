@@ -9,8 +9,16 @@ class WDetailItems extends StatelessWidget {
   final String title;
   final String appIcons;
   final String iconDow;
+  final GestureTapCallback onTab;
 
-  const WDetailItems({required this.subTitle,required this.title,required this.appIcons,required this.iconDow,super.key});
+  const WDetailItems({
+    required this.subTitle,
+    required this.title,
+    required this.appIcons,
+    required this.iconDow,
+    required this.onTab,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,34 +38,37 @@ class WDetailItems extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8),
-        Container(
-          decoration: BoxDecoration(
-            color: AppColors.mainColor,
-            borderRadius: BorderRadius.circular(
-              12.0,
+        GestureDetector(
+          onTap: onTab,
+          child: Container(
+            decoration: BoxDecoration(
+              color: AppColors.mainColor,
+              borderRadius: BorderRadius.circular(
+                12.0,
+              ),
             ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: appIcons == '' ? 0 : 20.0),
-                    child: SvgPicture.asset(appIcons),
-                  ),
-                  const SizedBox(width: 12),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16.0,horizontal: appIcons == '' ? 20 : 0),
-                    child: Text(title,style: AppStyles.getItems(),),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 16),
-                child: SvgPicture.asset(iconDow)
-              ),
-            ],
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: appIcons == '' ? 0 : 20.0),
+                      child: SvgPicture.asset(appIcons),
+                    ),
+                    const SizedBox(width: 12),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16.0,horizontal: appIcons == '' ? 20 : 0),
+                      child: Text(title,style: AppStyles.getItems(),),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 16),
+                  child: SvgPicture.asset(iconDow)
+                ),
+              ],
+            ),
           ),
         )
       ],
