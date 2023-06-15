@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toolpor_expense/presentation/screens/edit_item/edit_item.dart';
+import 'package:toolpor_expense/presentation/screens/home_screen/home_screen.dart';
 import 'package:toolpor_expense/presentation/screens/income_screen/income_screen.dart';
 import 'package:toolpor_expense/presentation/screens/item_detail/item_detail.dart';
 
@@ -14,8 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const IncomeScreen(),
-      theme: ThemeData(brightness: Brightness.dark),
+      home: const HomeScreen(),
     );
   }
 }

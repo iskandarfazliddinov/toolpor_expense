@@ -12,4 +12,7 @@ abstract class AppIcons{
   static const String calendar = "$pathIcon/calendar.svg";
   static const String birdie = "$pathIcon/birdie.svg";
   static const String down = "$pathIcon/down.svg";
+  static const String bell = "$pathIcon/bell.svg";
+  static const String minus = "$pathIcon/minus.svg";
+
 }
