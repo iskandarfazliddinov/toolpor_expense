@@ -27,7 +27,7 @@ class WDetailItems extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 20.0),
+          padding: EdgeInsets.only(top: subTitle != '' ? 20.0 : 0),
           child: Text(
             subTitle,
             style: const TextStyle(
@@ -37,7 +37,7 @@ class WDetailItems extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: 8),
+        SizedBox(height: subTitle != '' ? 8 : 0),
         GestureDetector(
           onTap: onTab,
           child: Container(
@@ -58,15 +58,22 @@ class WDetailItems extends StatelessWidget {
                     ),
                     const SizedBox(width: 12),
                     Padding(
-                      padding: EdgeInsets.symmetric(vertical: 16.0,horizontal: appIcons == '' ? 20 : 0),
-                      child: Text(title,style: AppStyles.getItems(),),
+                      padding: EdgeInsets.symmetric(
+                          vertical: 16.0, horizontal: appIcons == '' ? 20 : 0),
+                      child: Text(
+                        title,
+                        style: subTitle != ''
+                            ? AppStyles.getItems()
+                            : AppStyles.getItems().copyWith(
+                                color: const Color(0xFFB2B3B7),
+                              ),
+                      ),
                     ),
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 16),
-                  child: SvgPicture.asset(iconDow)
-                ),
+                    padding: const EdgeInsets.only(right: 16),
+                    child: SvgPicture.asset(iconDow)),
               ],
             ),
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toolpor_expense/presentation/screens/dialog_screen/dialog_screen.dart';
 import 'package:toolpor_expense/presentation/screens/edit_item/edit_item.dart';
 import 'package:toolpor_expense/presentation/screens/home_screen/home_screen.dart';
 import 'package:toolpor_expense/presentation/screens/income_screen/income_screen.dart';
@@ -13,9 +14,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const HomeScreen(),
+      home: HomeScreen(),
     );
   }
 }

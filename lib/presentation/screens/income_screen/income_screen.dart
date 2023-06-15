@@ -153,7 +153,7 @@ class _IncomeScreenState extends State<IncomeScreen> {
         backgroundColor: AppColors.backgroundColor,
       );
 
-  _getItems() => Container(
+  _getItems() => Container  (
         decoration: const BoxDecoration(
           color: AppColors.mainColor,
           borderRadius: BorderRadius.only(

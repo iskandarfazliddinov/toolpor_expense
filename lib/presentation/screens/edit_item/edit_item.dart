@@ -66,7 +66,7 @@ class _EditItemState extends State<EditItem> {
                   ),
                 ),
                 const SizedBox(height: 16,),
-                WEditItem(subTitle: "Sarlavha", controllers: titleController),
+                WEditItem(subTitle: "Sarlavha", controllers: titleController, hintText: '', maxLines: 1,),
                 WDetailItems(
                   subTitle: "Kategoriya",
                   title: "Bozorlik",
@@ -85,7 +85,7 @@ class _EditItemState extends State<EditItem> {
                     _showDataPicer();
                 },
                 ),
-                WEditItem(subTitle: "Tavsifi", controllers: descriptionController),
+                WEditItem(subTitle: "Tavsifi", controllers: descriptionController, hintText: '', maxLines: 1,),
               ],
             ),
           ),

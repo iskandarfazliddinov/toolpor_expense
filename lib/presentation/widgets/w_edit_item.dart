@@ -8,8 +8,10 @@ import 'package:toolpor_expense/presentation/resources/app_styles.dart';
 class WEditItem extends StatelessWidget {
   final String subTitle;
   final  TextEditingController controllers;
+  final String hintText;
+  final int maxLines;
 
-  const WEditItem({required this.subTitle,required this.controllers,super.key});
+  const WEditItem({required this.subTitle,required this.controllers,required this.hintText,required this.maxLines,super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,10 @@ class WEditItem extends StatelessWidget {
         TextField(
           style: const TextStyle(color: Colors.white),
           controller: controllers,
+          maxLines: maxLines,
           decoration: InputDecoration(
+            hintText: hintText,
+            hintStyle: const TextStyle(fontSize: 16,fontWeight: FontWeight.w400,color: Color(0xFFB2B3B7),),
             filled: true,
             fillColor: AppColors.mainColor,
             border: OutlineInputBorder(
