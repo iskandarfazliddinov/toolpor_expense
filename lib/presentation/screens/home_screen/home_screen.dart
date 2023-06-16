@@ -64,7 +64,8 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24.0,vertical: 18.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24.0, vertical: 18.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -73,8 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           style: AppStyles.getItems(),
                         ),
                         Container(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 4, horizontal: 8),
+                          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                           decoration: BoxDecoration(
                             border: Border.all(
                               color: const Color(0xFF292B2F),
@@ -108,41 +108,42 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(height: 250),
                   Container(
                     padding: const EdgeInsets.symmetric(vertical: 12),
-                    decoration:const BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color(0xFF292B2F),
-                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(16),bottomRight:Radius.circular(16),),
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(16),
+                        bottomRight: Radius.circular(16),
+                      ),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                          Row(
-                            children: [
-                              Container(
-                                height: 20,
-                                width: 20,
-                                decoration: BoxDecoration(
-                                  borderRadius:BorderRadius.circular(60),
-                                  color: const Color(0xFF93EDC7)
-                                ),
-                              ),
-                              const SizedBox(width: 12),
-                              Text(
+                        Row(
+                          children: [
+                            Container(
+                              height: 20,
+                              width: 20,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(60),
+                                  color: const Color(0xFF93EDC7)),
+                            ),
+                            const SizedBox(width: 12),
+                            Text(
                               "Daromad",
                               style: AppStyles.getItems().copyWith(
                                 fontWeight: FontWeight.w400,
                               ),
                             )
                           ],
-                          ),
-                          Row(
+                        ),
+                        Row(
                           children: [
                             Container(
                               height: 20,
                               width: 20,
                               decoration: BoxDecoration(
-                                  borderRadius:BorderRadius.circular(60),
-                                  color: const Color(0xFFFE9A7B)
-                              ),
+                                  borderRadius: BorderRadius.circular(60),
+                                  color: const Color(0xFFFE9A7B)),
                             ),
                             const SizedBox(width: 12),
                             Text(
@@ -164,11 +165,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   GestureDetector(
-                    onTap: (){
-                      showDialog(
+                    onTap: () {
+                      showModalBottomSheet(
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
                         context: context,
                         builder: (BuildContext context) {
-                          return const DialogScreen();
+                          return Padding(
+                            padding: EdgeInsets.only(
+                                bottom: MediaQuery.of(context).viewInsets.bottom,
+                            ),
+                            child: const DialogScreen(change: true),
+                          );
                         },
                       );
                     },
@@ -184,28 +192,41 @@ class _HomeScreenState extends State<HomeScreen> {
                             Color(0xFF1CD8D2), // Start color (#1CD8D2)
                             Color(0xFF93EDC7), // End color (#93EDC7)
                           ],
-                          stops: [0.0, 1.0], // Adjust the stops as needed
-                          transform: GradientRotation(90), // Set the desired angle
+                          stops: [0.0, 1.0],
+                          // Adjust the stops as needed
+                          transform:
+                              GradientRotation(90), // Set the desired angle
                         ),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Icon(Icons.add,color: Colors.black,),
-                          const SizedBox(width: 18,),
-                          Text("Daromad qo’shish",style: AppStyles.getItems().copyWith(color: Colors.black),),
+                          const Icon(
+                            Icons.add,
+                            color: Colors.black,
+                          ),
+                          const SizedBox(
+                            width: 18,
+                          ),
+                          Text(
+                            "Daromad qo’shish",
+                            style: AppStyles.getItems()
+                                .copyWith(color: Colors.black),
+                          ),
                         ],
                       ),
                     ),
                   ),
                   const SizedBox(height: 16),
                   GestureDetector(
-                    onTap: (){
-                      showDialog(
+                    onTap: () {
+                      showModalBottomSheet(
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
                         context: context,
                         builder: (BuildContext context) {
-                          return const DialogScreen();
+                          return const DialogScreen(change: false);
                         },
                       );
                     },
@@ -221,8 +242,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             Color(0xFFFF725F), // Start color (#1CD8D2)
                             Color(0xFFFE9A7B), // End color (#93EDC7)
                           ],
-                          stops: [0.0, 1.0], // Adjust the stops as needed
-                          transform: GradientRotation(90), // Set the desired angle
+                          stops: [0.0, 1.0],
+                          // Adjust the stops as needed
+                          transform:
+                              GradientRotation(90), // Set the desired angle
                         ),
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -231,7 +254,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           SvgPicture.asset(AppIcons.minus),
                           const SizedBox(width: 18),
-                          Text("Xarajat qo’shish",style: AppStyles.getItems().copyWith(color: Colors.black),),
+                          Text(
+                            "Xarajat qo’shish",
+                            style: AppStyles.getItems()
+                                .copyWith(color: Colors.black),
+                          ),
                         ],
                       ),
                     ),
