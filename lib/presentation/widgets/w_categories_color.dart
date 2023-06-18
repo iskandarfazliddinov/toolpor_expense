@@ -17,7 +17,7 @@ class WCategoriesColor extends StatelessWidget {
       backgroundColor: Colors.transparent,
       child: Container(
         padding: const EdgeInsets.all(20),
-        height: 400,
+        height: 420,
         decoration: BoxDecoration(
             color: AppColors.backgroundColor,
             borderRadius: BorderRadius.circular(16)),
@@ -87,7 +87,33 @@ class WCategoriesColor extends StatelessWidget {
                 title: 'Belgini tanlang',
                 appIcons: '',
                 iconDow: AppIcons.down,
-                onTab: () {})
+                onTab: () {}),
+            Container(
+              width: double.infinity,
+              height: 50,
+              margin: const EdgeInsets.symmetric(vertical: 20),
+              decoration:  BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                gradient: const LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: [
+                    Color(0xFF1CD8D2), // Start color (#1CD8D2)
+                    Color(0xFF93EDC7), // End color (#93EDC7)
+                  ],
+                  stops: [0.0, 1.0],
+                  // Adjust the stops as needed
+                  transform:
+                  GradientRotation(90), // Set the desired angle
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  "Kategoriya qo’shish",
+                  style: AppStyles.getItems().copyWith(color: Colors.black),
+                ),
+              ),
+            )
           ],
         ),
       ),
