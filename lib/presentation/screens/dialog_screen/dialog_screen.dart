@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:toolpor_expense/presentation/resources/app_colors.dart';
 import 'package:toolpor_expense/presentation/resources/app_icons.dart';
 import 'package:toolpor_expense/presentation/resources/app_styles.dart';
+import 'package:toolpor_expense/presentation/widgets/w_categories.dart';
+import 'package:toolpor_expense/presentation/widgets/w_dataPicer.dart';
 import '../../widgets/w_detail_items.dart';
 import '../../widgets/w_edit_item.dart';
 
@@ -11,7 +15,7 @@ class DialogScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController controller = TextEditingController(text: "0");
+    TextEditingController controller = TextEditingController();
     TextEditingController titleController = TextEditingController();
     TextEditingController descriptionController = TextEditingController();
 
@@ -30,9 +34,9 @@ class DialogScreen extends StatelessWidget {
           children: [
             const Divider(
               color: Colors.white,
-              endIndent: 150,
+              endIndent: 160,
               thickness: 2,
-              indent: 150,
+              indent: 160,
             ),
             TextField(
               textAlign: TextAlign.center,
@@ -64,7 +68,16 @@ class DialogScreen extends StatelessWidget {
               title: 'Kategoriyani tanlang',
               appIcons: '',
               iconDow: AppIcons.down,
-              onTab: () {},
+              onTab: () {
+                showModalBottomSheet(
+                  isScrollControlled: true,
+                  backgroundColor: Colors.transparent,
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const WCategories();
+                  },
+                );
+              },
             ),
             WDetailItems(
               subTitle: "",
