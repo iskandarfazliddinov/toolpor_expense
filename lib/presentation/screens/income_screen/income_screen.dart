@@ -1,9 +1,11 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:toolpor_expense/presentation/resources/app_colors.dart';
 import 'package:toolpor_expense/presentation/resources/app_icons.dart';
 import 'package:toolpor_expense/presentation/resources/app_styles.dart';
+import 'package:toolpor_expense/presentation/screens/cubits/my_cubit/my_cubit.dart';
 import 'package:toolpor_expense/presentation/screens/item_detail/item_detail.dart';
 import 'package:toolpor_expense/presentation/widgets/w_calendar.dart';
 import 'package:toolpor_expense/presentation/widgets/w_dialog.dart';
@@ -27,15 +29,16 @@ class _IncomeScreenState extends State<IncomeScreen> {
       initialDate: DateTime.now(),
       firstDate: DateTime(2000),
       lastDate: DateTime(2025),
-    ).then((value) => {
-          setState(() {
-            if (check) {
-              _dateTimeOld = value!;
-            } else {
-              _dateTimeEnd = value!;
-            }
-          })
-        });
+    ).then((value) =>
+    {
+      setState(() {
+        if (check) {
+          _dateTimeOld = value!;
+        } else {
+          _dateTimeEnd = value!;
+        }
+      })
+    });
   }
 
   @override
@@ -48,19 +51,21 @@ class _IncomeScreenState extends State<IncomeScreen> {
           children: [
             Padding(
               padding:
-                  const EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
+              const EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   WCalendar(
                       data:
-                          "${_dateTimeOld.day}.${_dateTimeOld.month}.${_dateTimeOld.year}",
+                      "${_dateTimeOld.day}.${_dateTimeOld.month}.${_dateTimeOld
+                          .year}",
                       onTab: () {
                         _showDataPicer(check: true);
                       }),
                   WCalendar(
                       data:
-                          "${_dateTimeEnd.day}.${_dateTimeEnd.month}.${_dateTimeEnd.year}",
+                      "${_dateTimeEnd.day}.${_dateTimeEnd.month}.${_dateTimeEnd
+                          .year}",
                       onTab: () {
                         _showDataPicer(check: false);
                       }),
@@ -101,20 +106,76 @@ class _IncomeScreenState extends State<IncomeScreen> {
                     const SizedBox(
                       height: 400,
                       width: 400,
-                      child: WLineChart() ,
+                      child: WLineChart(),
                     )
                   ],
                 ),
               ),
             ),
-            _getItems()
+            Container(
+              decoration: const BoxDecoration(
+                color: AppColors.mainColor,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(16.0),
+                  topRight: Radius.circular(16.0),
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(top: 20.0),
+                    child: Divider(
+                        color: Color(0xFFB2B3B7),
+                        endIndent: 180,
+                        thickness: 2,
+                        indent: 180),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Text(
+                      "Oxirgi xarajatlar",
+                      style: AppStyles.getItems(),
+                    ),
+                  ),
+                  BlocBuilder<MyCubit, MyState>(
+                    builder: (context, state) {
+                      if (state is UsersLoaded) {
+                        return ListView.builder(
+                          shrinkWrap: true,
+                            itemCount: state.users.length,
+                            itemBuilder: (context, index) =>
+                                WItems(
+                                  onTab: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => const ItemDetail(),
+                                      ),
+                                    );
+                                  },
+                                  contexts: context,
+                                  title: state.users[index].title,
+                                  calendar: state.users[index].calendar,
+                                  money: state.users[index].money,
+                                )
+                        );
+                      } else {
+                        return const SizedBox();
+                      }
+                    },
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 
-  _getAppBar() => AppBar(
+  _getAppBar() =>
+      AppBar(
         title: const Center(
           child: Text(
             "Daromadlar",
@@ -153,47 +214,4 @@ class _IncomeScreenState extends State<IncomeScreen> {
         backgroundColor: AppColors.backgroundColor,
       );
 
-  _getItems() => Container  (
-        decoration: const BoxDecoration(
-          color: AppColors.mainColor,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(16.0),
-            topRight: Radius.circular(16.0),
-          ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(top: 20.0),
-              child: Divider(
-                  color: Color(0xFFB2B3B7),
-                  endIndent: 180,
-                  thickness: 2,
-                  indent: 180),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Text(
-                "Oxirgi xarajatlar",
-                style: AppStyles.getItems(),
-              ),
-            ),
-            ...List.generate(
-              10,
-              (index) => WItems(
-                onTab: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ItemDetail(),
-                    ),
-                  );
-                },
-                contexts: context,
-              ),
-            )
-          ],
-        ),
-      );
 }

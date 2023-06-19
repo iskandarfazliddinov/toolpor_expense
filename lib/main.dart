@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:toolpor_expense/presentation/screens/dialog_screen/dialog_screen.dart';
-import 'package:toolpor_expense/presentation/screens/edit_item/edit_item.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:toolpor_expense/presentation/screens/cubits/categories_cubit/categories_cubit.dart';
 import 'package:toolpor_expense/presentation/screens/home_screen/home_screen.dart';
-import 'package:toolpor_expense/presentation/screens/income_screen/income_screen.dart';
-import 'package:toolpor_expense/presentation/screens/item_detail/item_detail.dart';
+import 'presentation/screens/cubits/my_cubit/my_cubit.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,10 +13,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
-    );
+    return MultiBlocProvider(providers: [BlocProvider(
+        create: (BuildContext context) => MyCubit(),),BlocProvider(create: (context)=> CategoriesCubit())
+  ],    child: const MaterialApp(
+  debugShowCheckedModeBanner: false,
+    home: HomeScreen(),
+    ),
+    ) ;
   }
 }
 

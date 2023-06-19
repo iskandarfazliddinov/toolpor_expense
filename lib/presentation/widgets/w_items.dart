@@ -10,8 +10,17 @@ import 'package:toolpor_expense/presentation/widgets/w_dialog.dart';
 class WItems extends StatelessWidget {
   final GestureTapCallback onTab;
   final BuildContext contexts;
+  final String title;
+  final String calendar;
+  final String money;
 
-  const WItems({required this.onTab, required this.contexts, super.key});
+  const WItems(
+      {required this.onTab,
+      required this.contexts,
+      super.key,
+      required this.title,
+      required this.calendar,
+      required this.money});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +36,12 @@ class WItems extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (BuildContext contexts) {
-                  return  const WDialog(text: 'Haqiqatan ham bu elementni\no’chirib tashlamoqchimisiz?', dialogText: 'O’chirish', dColor: Color(0xFFCC2D63),);
+                  return const WDialog(
+                    text:
+                        'Haqiqatan ham bu elementni\no’chirib tashlamoqchimisiz?',
+                    dialogText: 'O’chirish',
+                    dColor: Color(0xFFCC2D63),
+                  );
                 },
               );
             },
@@ -78,10 +92,10 @@ class WItems extends StatelessWidget {
                     text: TextSpan(
                       text: "Bozorlik\n",
                       style: AppStyles.getItems(),
-                      children: const <TextSpan>[
+                      children: <TextSpan>[
                         TextSpan(
-                            text: "12.02.2023",
-                            style: TextStyle(
+                            text: calendar,
+                            style: const TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Color(0xFFB2B3B7),
                                 fontSize: 12.0))
@@ -90,9 +104,9 @@ class WItems extends StatelessWidget {
                   ),
                 ],
               ),
-              const Text(
-                "+596 000 s.",
-                style: TextStyle(
+              Text(
+                "+$money s.",
+                style: const TextStyle(
                   fontSize: 14.0,
                   color: Color(0xFF93EDC7),
                   fontWeight: FontWeight.w600,

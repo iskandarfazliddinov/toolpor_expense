@@ -7,12 +7,22 @@ import 'w_detail_items.dart';
 import 'w_edit_item.dart';
 
 class WCategoriesColor extends StatelessWidget {
-  final TextEditingController controllers ;
+  final TextEditingController controllers;
 
-  const WCategoriesColor({required this.controllers,super.key});
+  const WCategoriesColor({required this.controllers, super.key});
 
   @override
   Widget build(BuildContext context) {
+    List<Color> colors = [
+      const Color(0xFF76D87E),
+      const Color(0xFFE2BF5A),
+      const Color(0xFFFFC680),
+      const Color(0xFFFFC1BA),
+      const Color(0xFFFFBEDD),
+      const Color(0xFFE2C5FF),
+      const Color(0xFFA5D6FF),
+    ];
+
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
@@ -35,8 +45,7 @@ class WCategoriesColor extends StatelessWidget {
                 maxLines: 1),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment
-                  .start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Padding(
                   padding: EdgeInsets.only(top: 20.0),
@@ -51,31 +60,26 @@ class WCategoriesColor extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 12),
+                  padding: const EdgeInsets.symmetric(vertical: 12),
                   decoration: BoxDecoration(
                       color: AppColors.mainColor,
-                      borderRadius:
-                      BorderRadius.circular(12)),
+                      borderRadius: BorderRadius.circular(12)),
                   child: Row(
-                    mainAxisAlignment:
-                    MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ...List.generate(
                         7,
-                            (index) =>
-                            Container(
-                              margin:
-                              const EdgeInsets.only(
-                                  left: 10),
-                              decoration: BoxDecoration(
-                                  color: Colors.green,
-                                  borderRadius:
-                                  BorderRadius.circular(
-                                      28)),
-                              height: 32,
-                              width: 32,
+                        (index) => Container(
+                          margin: const EdgeInsets.only(left: 10),
+                          decoration: BoxDecoration(
+                            color: colors[index],
+                            borderRadius: BorderRadius.circular(
+                              28,
                             ),
+                          ),
+                          height: 32,
+                          width: 32,
+                        ),
                       ),
                     ],
                   ),
@@ -87,12 +91,13 @@ class WCategoriesColor extends StatelessWidget {
                 title: 'Belgini tanlang',
                 appIcons: '',
                 iconDow: AppIcons.down,
-                onTab: () {}),
+                onTab: () {},
+            ),
             Container(
               width: double.infinity,
               height: 50,
               margin: const EdgeInsets.symmetric(vertical: 20),
-              decoration:  BoxDecoration(
+              decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 gradient: const LinearGradient(
                   begin: Alignment.centerLeft,
@@ -103,8 +108,7 @@ class WCategoriesColor extends StatelessWidget {
                   ],
                   stops: [0.0, 1.0],
                   // Adjust the stops as needed
-                  transform:
-                  GradientRotation(90), // Set the desired angle
+                  transform: GradientRotation(90), // Set the desired angle
                 ),
               ),
               child: Center(
