@@ -29,16 +29,15 @@ class _IncomeScreenState extends State<IncomeScreen> {
       initialDate: DateTime.now(),
       firstDate: DateTime(2000),
       lastDate: DateTime(2025),
-    ).then((value) =>
-    {
-      setState(() {
-        if (check) {
-          _dateTimeOld = value!;
-        } else {
-          _dateTimeEnd = value!;
-        }
-      })
-    });
+    ).then((value) => {
+          setState(() {
+            if (check) {
+              _dateTimeOld = value!;
+            } else {
+              _dateTimeEnd = value!;
+            }
+          })
+        });
   }
 
   @override
@@ -51,21 +50,19 @@ class _IncomeScreenState extends State<IncomeScreen> {
           children: [
             Padding(
               padding:
-              const EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
+                  const EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   WCalendar(
                       data:
-                      "${_dateTimeOld.day}.${_dateTimeOld.month}.${_dateTimeOld
-                          .year}",
+                          "${_dateTimeOld.day}.${_dateTimeOld.month}.${_dateTimeOld.year}",
                       onTab: () {
                         _showDataPicer(check: true);
                       }),
                   WCalendar(
                       data:
-                      "${_dateTimeEnd.day}.${_dateTimeEnd.month}.${_dateTimeEnd
-                          .year}",
+                          "${_dateTimeEnd.day}.${_dateTimeEnd.month}.${_dateTimeEnd.year}",
                       onTab: () {
                         _showDataPicer(check: false);
                       }),
@@ -142,15 +139,15 @@ class _IncomeScreenState extends State<IncomeScreen> {
                     builder: (context, state) {
                       if (state is UsersLoaded) {
                         return ListView.builder(
-                          shrinkWrap: true,
+                            shrinkWrap: true,
                             itemCount: state.users.length,
-                            itemBuilder: (context, index) =>
-                                WItems(
+                            itemBuilder: (context, index) => WItems(
                                   onTab: () {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => const ItemDetail(),
+                                        builder: (context) =>
+                                            const ItemDetail(),
                                       ),
                                     );
                                   },
@@ -158,7 +155,8 @@ class _IncomeScreenState extends State<IncomeScreen> {
                                   title: state.users[index].title,
                                   calendar: state.users[index].calendar,
                                   money: state.users[index].money,
-                                )
+                                  icon: state.users[index].icon,
+                                ),
                         );
                       } else {
                         return const SizedBox();
@@ -174,8 +172,7 @@ class _IncomeScreenState extends State<IncomeScreen> {
     );
   }
 
-  _getAppBar() =>
-      AppBar(
+  _getAppBar() => AppBar(
         title: const Center(
           child: Text(
             "Daromadlar",
@@ -187,7 +184,9 @@ class _IncomeScreenState extends State<IncomeScreen> {
         ),
         leading: IconButton(
           icon: SvgPicture.asset(AppIcons.arrowLeft),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
         ),
         actions: <Widget>[
           GestureDetector(
@@ -213,5 +212,4 @@ class _IncomeScreenState extends State<IncomeScreen> {
         ],
         backgroundColor: AppColors.backgroundColor,
       );
-
 }

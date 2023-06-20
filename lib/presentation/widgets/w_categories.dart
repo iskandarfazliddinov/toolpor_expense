@@ -5,11 +5,13 @@ import 'package:toolpor_expense/presentation/resources/app_icons.dart';
 import 'package:toolpor_expense/presentation/resources/app_styles.dart';
 import 'package:toolpor_expense/presentation/screens/cubits/categories_cubit/categories_cubit.dart';
 import 'package:toolpor_expense/presentation/screens/cubits/categories_cubit/category.dart';
+import 'package:toolpor_expense/presentation/screens/dialog_screen/dialog_screen.dart';
 import 'package:toolpor_expense/presentation/widgets/w_categories_color.dart';
 import 'package:toolpor_expense/presentation/widgets/w_category_items.dart';
 import 'package:toolpor_expense/presentation/widgets/w_detail_items.dart';
 import 'package:toolpor_expense/presentation/widgets/w_edit_item.dart';
 
+import '../catigory_data.dart';
 import '../resources/app_colors.dart';
 
 class WCategories extends StatelessWidget {
@@ -18,16 +20,6 @@ class WCategories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController controllers = TextEditingController();
-
-    List<CategoryData> categotyData = [
-      CategoryData(icon: AppIcons.apple_elips, title: "Oziq-ovqatlar"),
-      CategoryData(icon: AppIcons.apple_elips, title: "Ta’lim"),
-      CategoryData(icon: AppIcons.apple_elips, title: "Restoran/Kafe"),
-      CategoryData(icon: AppIcons.apple_elips, title: "Ish"),
-      CategoryData(icon: AppIcons.apple_elips, title: "Pul o’tkazmalari"),
-      CategoryData(icon: AppIcons.apple_elips, title: "Ehson/Zakot"),
-      CategoryData(icon: AppIcons.apple_elips, title: "Shopping"),
-    ];
 
     return Padding(
       padding: EdgeInsets.only(
@@ -54,18 +46,28 @@ class WCategories extends StatelessWidget {
                 builder: (context, state) {
                   if (state is UsersLoaded) {
                     return ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: state.users.length,
-                        itemBuilder: (context, index) => WCategoryItems(
-                            title: state.users[index].title,
-                            icon: state.users[index].icon));
+                      shrinkWrap: true,
+                      itemCount: state.users.length,
+                      itemBuilder: (context, index) => WCategoryItems(
+                        title: state.users[index].title,
+                        icon: state.users[index].icon,
+                        onTab: () {
+                          Navigator.of(context).pop(index);
+                        },
+                      ),
+                    );
                   } else {
                     return ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: categotyData.length,
-                        itemBuilder: (context, index) => WCategoryItems(
-                            title: categotyData[index].title,
-                            icon: categotyData[index].icon));
+                      shrinkWrap: true,
+                      itemCount: categoryData.length,
+                      itemBuilder: (context, index) => WCategoryItems(
+                        title: categoryData[index].title,
+                        icon: categoryData[index].icon,
+                        onTab: () {
+                          Navigator.of(context).pop(index);
+                        },
+                      ),
+                    );
                   }
                 },
               ),

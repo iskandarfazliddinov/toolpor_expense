@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:toolpor_expense/presentation/catigory_data.dart';
 import 'package:toolpor_expense/presentation/resources/app_colors.dart';
 import 'package:toolpor_expense/presentation/resources/app_icons.dart';
 import 'package:toolpor_expense/presentation/resources/app_styles.dart';
@@ -16,18 +17,45 @@ import '../../widgets/w_edit_item.dart';
 class DialogScreen extends StatefulWidget {
   final bool change;
 
-  const DialogScreen({required this.change, super.key});
+  DialogScreen({required this.change, super.key});
 
   @override
   State<DialogScreen> createState() => _DialogScreenState();
 }
 
 class _DialogScreenState extends State<DialogScreen> {
-
-
+  int? catigroyIndex;
+  DateTime _dateTime = DateTime.now();
   TextEditingController controller = TextEditingController();
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+
+  void updateCatigoryData() async {
+    var a = await showModalBottomSheet(
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (BuildContext context) {
+        return const WCategories();
+      },
+    );
+    setState(() {
+      catigroyIndex = a;
+    });
+  }
+
+  void _showDataPicer() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2025),
+    ).then((value) => {
+          setState(() {
+              _dateTime = value!;
+          })
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +83,9 @@ class _DialogScreenState extends State<DialogScreen> {
                 textAlign: TextAlign.center,
                 controller: controller,
                 style: TextStyle(
-                  color:
-                      widget.change ? const Color(0xFF93EDC7) : const Color(0xFFFE9A7B),
+                  color: widget.change
+                      ? const Color(0xFF93EDC7)
+                      : const Color(0xFFFE9A7B),
                   fontWeight: FontWeight.w600,
                   fontSize: 28,
                 ),
@@ -77,27 +106,23 @@ class _DialogScreenState extends State<DialogScreen> {
                 ),
               ),
               WDetailItems(
-                subTitle: '',
-                title: 'Kategoriyani tanlang',
-                appIcons: '',
-                iconDow: AppIcons.down,
-                onTab: () {
-                  showModalBottomSheet(
-                    isScrollControlled: true,
-                    backgroundColor: Colors.transparent,
-                    context: context,
-                    builder: (BuildContext context) {
-                      return const WCategories();
-                    },
-                  );
-                },
-              ),
+                  subTitle: '',
+                  title: catigroyIndex == null
+                      ? 'Kategoriyani tanlang'
+                      : categoryData[catigroyIndex!].title,
+                  appIcons: catigroyIndex == null
+                      ? ''
+                      : categoryData[catigroyIndex!].icon,
+                  iconDow: AppIcons.down,
+                  onTab: updateCatigoryData),
               WDetailItems(
                 subTitle: "",
-                title: "18.02.2023",
+                title: "${_dateTime.day}.${_dateTime.month}.${_dateTime.year}",
                 appIcons: AppIcons.calendar,
                 iconDow: AppIcons.down,
-                onTab: () {},
+                onTab: () {
+                  _showDataPicer();
+                },
               ),
               WEditItem(
                 subTitle: "Sarlavha",
@@ -112,17 +137,22 @@ class _DialogScreenState extends State<DialogScreen> {
                 maxLines: 2,
               ),
               GestureDetector(
-                onTap: (){
-                  context.read<MyCubit>().addUser(
-                    User(
-                      calendar: "19.06.2023",
-                      category: "Bozorlik",
-                      description: descriptionController.text,
-                      money: controller.text,
-                      title: titleController.text
-                    ),
-                  );
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const IncomeScreen(),));
+                onTap: () {
+                  if (catigroyIndex != null &&
+                      controller.text != "" &&
+                      descriptionController.text != "" &&
+                      titleController.text != "") {
+                    context.read<MyCubit>().addUser(
+                          User(
+                              calendar: "${_dateTime.day}.${_dateTime.month}.${_dateTime.year}",
+                              category: categoryData[catigroyIndex!].title,
+                              description: descriptionController.text,
+                              money: controller.text,
+                              title: titleController.text,
+                              icon: categoryData[catigroyIndex!].icon),
+                        );
+                    Navigator.of(context).pop();
+                  }
                 },
                 child: Container(
                   width: double.infinity,

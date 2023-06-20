@@ -6,12 +6,14 @@ class User{
   final String title;
   final String description;
   final String money;
+  final String icon;
 
   User({
    required this.category,
    required this.calendar,
    required this.title,
    required this.description,
-    required this.money
+    required this.money,
+    required this.icon
 });
 }

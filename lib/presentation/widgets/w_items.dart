@@ -13,6 +13,7 @@ class WItems extends StatelessWidget {
   final String title;
   final String calendar;
   final String money;
+  final String icon;
 
   const WItems(
       {required this.onTab,
@@ -20,7 +21,9 @@ class WItems extends StatelessWidget {
       super.key,
       required this.title,
       required this.calendar,
-      required this.money});
+      required this.money,
+        required this.icon
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -84,13 +87,13 @@ class WItems extends StatelessWidget {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(12.0),
-                      child: SvgPicture.asset(AppIcons.apple),
+                      child: SvgPicture.asset(icon),
                     ),
                   ),
                   const SizedBox(width: 12.0),
                   RichText(
                     text: TextSpan(
-                      text: "Bozorlik\n",
+                      text: "$title\n",
                       style: AppStyles.getItems(),
                       children: <TextSpan>[
                         TextSpan(

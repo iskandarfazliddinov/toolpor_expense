@@ -5,6 +5,7 @@ import 'package:toolpor_expense/presentation/resources/app_icons.dart';
 import 'package:toolpor_expense/presentation/resources/app_styles.dart';
 import 'package:toolpor_expense/presentation/screens/dialog_screen/dialog_screen.dart';
 import 'package:toolpor_expense/presentation/screens/edit_item/edit_item.dart';
+import 'package:toolpor_expense/presentation/screens/income_screen/income_screen.dart';
 import 'package:toolpor_expense/presentation/widgets/w_detail_items.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -117,41 +118,51 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Row(
-                          children: [
-                            Container(
-                              height: 20,
-                              width: 20,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(60),
-                                  color: const Color(0xFF93EDC7)),
-                            ),
-                            const SizedBox(width: 12),
-                            Text(
-                              "Daromad",
-                              style: AppStyles.getItems().copyWith(
-                                fontWeight: FontWeight.w400,
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const IncomeScreen(),),);
+                          },
+                          child: Row(
+                            children: [
+                              Container(
+                                height: 20,
+                                width: 20,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(60),
+                                    color: const Color(0xFF93EDC7)),
                               ),
-                            )
-                          ],
+                              const SizedBox(width: 12),
+                              Text(
+                                "Daromad",
+                                style: AppStyles.getItems().copyWith(
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              )
+                            ],
+                          ),
                         ),
-                        Row(
-                          children: [
-                            Container(
-                              height: 20,
-                              width: 20,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(60),
-                                  color: const Color(0xFFFE9A7B)),
-                            ),
-                            const SizedBox(width: 12),
-                            Text(
-                              "Xarajat",
-                              style: AppStyles.getItems().copyWith(
-                                fontWeight: FontWeight.w400,
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const IncomeScreen(),));
+                          },
+                          child: Row(
+                            children: [
+                              Container(
+                                height: 20,
+                                width: 20,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(60),
+                                    color: const Color(0xFFFE9A7B)),
                               ),
-                            )
-                          ],
+                              const SizedBox(width: 12),
+                              Text(
+                                "Xarajat",
+                                style: AppStyles.getItems().copyWith(
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -174,7 +185,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             padding: EdgeInsets.only(
                                 bottom: MediaQuery.of(context).viewInsets.bottom,
                             ),
-                            child: const DialogScreen(change: true),
+                            child:  DialogScreen(change: true),
                           );
                         },
                       );
@@ -229,7 +240,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             padding: EdgeInsets.only(
                               bottom: MediaQuery.of(context).viewInsets.bottom,
                             ),
-                            child: const DialogScreen(change: false),
+                            child:  DialogScreen(change: false),
                           );
                         },
                       );
