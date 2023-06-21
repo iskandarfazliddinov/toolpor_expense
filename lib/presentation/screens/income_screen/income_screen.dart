@@ -138,25 +138,41 @@ class _IncomeScreenState extends State<IncomeScreen> {
                   BlocBuilder<MyCubit, MyState>(
                     builder: (context, state) {
                       if (state is UsersLoaded) {
-                        return ListView.builder(
+                        return SizedBox(
+                          height: 200,
+                          child: ListView.builder(
                             shrinkWrap: true,
                             itemCount: state.users.length,
                             itemBuilder: (context, index) => WItems(
-                                  onTab: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const ItemDetail(),
-                                      ),
+                              onTab: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const ItemDetail(),
+                                  ),
+                                );
+                              },
+                              contexts: context,
+                              title: state.users[index].title,
+                              calendar: state.users[index].calendar,
+                              money: state.users[index].money,
+                              icon: state.users[index].icon,
+                              changes: state.users[index].changes,
+                              onPresDel: (BuildContext context) {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext contexts) {
+                                    return  WDialog(
+                                      text:
+                                          'Haqiqatan ham bu elementni\no’chirib tashlamoqchimisiz?',
+                                      dialogText: 'O’chirish',
+                                      dColor: const Color(0xFFCC2D63), index: index,
                                     );
                                   },
-                                  contexts: context,
-                                  title: state.users[index].title,
-                                  calendar: state.users[index].calendar,
-                                  money: state.users[index].money,
-                                  icon: state.users[index].icon,
-                                ),
+                                );
+                              },
+                            ),
+                          ),
                         );
                       } else {
                         return const SizedBox();
@@ -197,10 +213,10 @@ class _IncomeScreenState extends State<IncomeScreen> {
               showDialog(
                 context: context,
                 builder: (BuildContext contexts) {
-                  return const WDialog(
+                  return  const WDialog(
                     text: 'Ma’lumotlarni export qilishni\nxohlaysizmi?',
                     dialogText: 'Export qilish',
-                    dColor: Color(0xFF93EDC7),
+                    dColor: Color(0xFF93EDC7), index: -1,
                   );
                 },
               );

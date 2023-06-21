@@ -14,5 +14,6 @@ abstract class AppIcons{
   static const String down = "$pathIcon/down.svg";
   static const String bell = "$pathIcon/bell.svg";
   static const String minus = "$pathIcon/minus.svg";
+  static const String birde = "$pathIcon/birde.svg";
 
 }

@@ -7,6 +7,7 @@ class User{
   final String description;
   final String money;
   final String icon;
+  final bool changes;
 
   User({
    required this.category,
@@ -14,6 +15,7 @@ class User{
    required this.title,
    required this.description,
     required this.money,
-    required this.icon
+    required this.icon,
+    required this.changes
 });
 }

@@ -6,7 +6,7 @@ abstract class CategoriesState {}
 class CategoriesInitial extends CategoriesState {}
 
 class UsersLoaded extends CategoriesState{
-  final List<CategoryData> users;
+  final CategoryData user;
 
-  UsersLoaded({required this.users});
+  UsersLoaded({required this.user});
 }

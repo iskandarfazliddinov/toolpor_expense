@@ -1,4 +1,8 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:toolpor_expense/presentation/resources/app_colors.dart';
+import 'package:toolpor_expense/presentation/screens/cubits/my_cubit/my_cubit.dart';
 
 import '../resources/app_styles.dart';
 
@@ -6,8 +10,9 @@ class WDialog extends StatelessWidget {
   final String text;
   final String dialogText;
   final Color dColor;
+  final int index ;
 
-  const WDialog({required this.text,required this.dialogText,required this.dColor,super.key});
+  const WDialog({required this.text,required this.dialogText,required this.dColor,required this.index,super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +50,10 @@ class WDialog extends StatelessWidget {
                 ),
                 const SizedBox(width: 20),
                 GestureDetector(
-                  onTap: () {
+                  onTap: (){
+                    if(index != -1){
+                      context.read<MyCubit>().deleteUser(index);
+                    }
                     Navigator.of(context).pop();
                   },
                   child: Container(

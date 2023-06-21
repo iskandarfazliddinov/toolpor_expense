@@ -19,7 +19,6 @@ class WCategories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController controllers = TextEditingController();
 
     return Padding(
       padding: EdgeInsets.only(
@@ -42,21 +41,10 @@ class WCategories extends StatelessWidget {
                 thickness: 2,
                 indent: 160,
               ),
-              BlocBuilder<CategoriesCubit, CategoriesState>(
-                builder: (context, state) {
-                  if (state is UsersLoaded) {
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: state.users.length,
-                      itemBuilder: (context, index) => WCategoryItems(
-                        title: state.users[index].title,
-                        icon: state.users[index].icon,
-                        onTab: () {
-                          Navigator.of(context).pop(index);
-                        },
-                      ),
-                    );
-                  } else {
+              SizedBox(
+                height: 450,
+                child: BlocBuilder<CategoriesCubit, CategoriesState>(
+                  builder: (context, state) {
                     return ListView.builder(
                       shrinkWrap: true,
                       itemCount: categoryData.length,
@@ -64,46 +52,22 @@ class WCategories extends StatelessWidget {
                         title: categoryData[index].title,
                         icon: categoryData[index].icon,
                         onTab: () {
-                          Navigator.of(context).pop(index);
+                          if(index != categoryData.length-1){
+                            Navigator.of(context).pop(index);
+                          }else{
+                            showDialog(
+                              context: context,
+                              builder: (context) =>
+                              const WCategoriesColor(),
+                            );
+                          }
                         },
+                        color: categoryData[index].color,
                       ),
                     );
-                  }
-                },
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 24.0, top: 20, bottom: 20),
-                child: GestureDetector(
-                  onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) =>
-                            WCategoriesColor(controllers: controllers));
                   },
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 36,
-                        height: 36,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFB2B3B7),
-                          borderRadius: BorderRadius.circular(36),
-                        ),
-                        child: const Icon(
-                          Icons.add,
-                          color: Colors.black,
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Text(
-                        "Yangi kategoriya qo’shish",
-                        style: AppStyles.getItems()
-                            .copyWith(fontWeight: FontWeight.w400),
-                      )
-                    ],
-                  ),
                 ),
-              )
+              ),
             ],
           ),
         ),

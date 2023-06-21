@@ -17,7 +17,7 @@ import '../../widgets/w_edit_item.dart';
 class DialogScreen extends StatefulWidget {
   final bool change;
 
-  DialogScreen({required this.change, super.key});
+  const DialogScreen({required this.change, super.key});
 
   @override
   State<DialogScreen> createState() => _DialogScreenState();
@@ -114,7 +114,8 @@ class _DialogScreenState extends State<DialogScreen> {
                       ? ''
                       : categoryData[catigroyIndex!].icon,
                   iconDow: AppIcons.down,
-                  onTab: updateCatigoryData),
+                  onTab: updateCatigoryData
+              ),
               WDetailItems(
                 subTitle: "",
                 title: "${_dateTime.day}.${_dateTime.month}.${_dateTime.year}",
@@ -149,7 +150,9 @@ class _DialogScreenState extends State<DialogScreen> {
                               description: descriptionController.text,
                               money: controller.text,
                               title: titleController.text,
-                              icon: categoryData[catigroyIndex!].icon),
+                              icon: categoryData[catigroyIndex!].icon,
+                            changes: widget.change,
+                          ),
                         );
                     Navigator.of(context).pop();
                   }

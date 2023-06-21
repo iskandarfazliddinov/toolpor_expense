@@ -185,7 +185,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             padding: EdgeInsets.only(
                                 bottom: MediaQuery.of(context).viewInsets.bottom,
                             ),
-                            child:  DialogScreen(change: true),
+                            child:  const DialogScreen(change: true),
                           );
                         },
                       );
@@ -240,7 +240,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             padding: EdgeInsets.only(
                               bottom: MediaQuery.of(context).viewInsets.bottom,
                             ),
-                            child:  DialogScreen(change: false),
+                            child:  const DialogScreen(change: false),
                           );
                         },
                       );
