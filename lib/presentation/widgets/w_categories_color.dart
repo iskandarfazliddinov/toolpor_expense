@@ -44,9 +44,8 @@ class WCategoriesColor extends StatelessWidget {
             ),
             WEditItem(
               subTitle: 'Sarlavha',
-              controllers: controllers,
               hintText: "Sarlavha",
-              maxLines: 1,
+              maxLines: 1, title: '',
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,

@@ -18,6 +18,7 @@ class WItems extends StatelessWidget {
   final String icon;
   final bool changes;
   final SlidableActionCallback onPresDel;
+  final SlidableActionCallback onPresEdit;
 
   const WItems({
     required this.onTab,
@@ -28,7 +29,8 @@ class WItems extends StatelessWidget {
     required this.money,
     required this.icon,
     required this.changes,
-    required this.onPresDel
+    required this.onPresDel,
+    required this.onPresEdit
   });
 
   @override
@@ -47,13 +49,7 @@ class WItems extends StatelessWidget {
             backgroundColor: AppColors.mainColor,
             label: 'Edit',
             icon: Icons.edit,
-            onPressed: (BuildContext context) {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const EditItem(),
-                ),
-              );
-            },
+            onPressed: onPresEdit,
           ),
         ],
       ),

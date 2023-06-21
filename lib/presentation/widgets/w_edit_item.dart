@@ -7,21 +7,22 @@ import 'package:toolpor_expense/presentation/resources/app_styles.dart';
 
 class WEditItem extends StatelessWidget {
   final String subTitle;
-  final TextEditingController controllers;
   final String hintText;
   final int maxLines;
+  final String title;
 
-  const WEditItem({
+   WEditItem({
     required this.subTitle,
-    required this.controllers,
     required this.hintText,
     required this.maxLines,
+    required this.title,
     super.key,
   });
-
-  @override
+   @override
   Widget build(BuildContext context) {
-    return Column(
+     TextEditingController controllers = TextEditingController(text: title);
+
+     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -37,9 +38,7 @@ class WEditItem extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8),
-        TextField(onChanged: (val){
-          print(val);
-        },
+        TextField(
           style: const TextStyle(color: Colors.white),
           controller: controllers,
           maxLines: maxLines,

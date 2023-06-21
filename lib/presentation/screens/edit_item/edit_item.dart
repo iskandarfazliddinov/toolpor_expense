@@ -9,7 +9,22 @@ import 'package:toolpor_expense/presentation/widgets/w_edit_item.dart';
 import '../../resources/app_icons.dart';
 
 class EditItem extends StatefulWidget {
-  const EditItem({super.key});
+  final String title;
+  final String categories;
+  final String date;
+  final String description;
+  final String money;
+  final String icon;
+
+  const EditItem({
+    required this.title,
+    required this.categories,
+    required this.date,
+    required this.description,
+    required this.money,
+    required this.icon,
+    super.key
+  });
 
   @override
   State<EditItem> createState() => _EditItemState();
@@ -17,9 +32,6 @@ class EditItem extends StatefulWidget {
 
 class _EditItemState extends State<EditItem> {
   DateTime _dateTime = DateTime.now();
-  TextEditingController titleController = TextEditingController(text: "Bozorlik");
-  TextEditingController descriptionController = TextEditingController(text: "Bolamni tug’ilgan kuniga bozorlik qilgandik.");
-
   void _showDataPicer() {
     showDatePicker(
       context: context,
@@ -51,12 +63,12 @@ class _EditItemState extends State<EditItem> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16.0),
                     ),
-                    child: const Padding(
+                    child:  Padding(
                       padding:
-                      EdgeInsets.symmetric(vertical: 8.0, horizontal: 28),
+                      const EdgeInsets.symmetric(vertical: 8.0, horizontal: 28),
                       child: Text(
-                        "+596 000 so’m",
-                        style: TextStyle(
+                        "${widget.money} so’m",
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 24,
                           fontWeight: FontWeight.w600,
@@ -66,11 +78,11 @@ class _EditItemState extends State<EditItem> {
                   ),
                 ),
                 const SizedBox(height: 16,),
-                WEditItem(subTitle: "Sarlavha", controllers: titleController, hintText: '', maxLines: 1,),
+                WEditItem(subTitle: "Sarlavha", hintText: '', maxLines: 1, title: widget.title,),
                 WDetailItems(
                   subTitle: "Kategoriya",
-                  title: "Bozorlik",
-                  appIcons: AppIcons.apple_elips,
+                  title: widget.categories,
+                  appIcons: widget.icon,
                   iconDow: AppIcons.down,
                   onTab: () {
 
@@ -85,7 +97,7 @@ class _EditItemState extends State<EditItem> {
                     _showDataPicer();
                 },
                 ),
-                WEditItem(subTitle: "Tavsifi", controllers: descriptionController, hintText: '', maxLines: 1,),
+                WEditItem(subTitle: "Tavsifi", hintText: '', maxLines: 1, title: widget.description,),
               ],
             ),
           ),

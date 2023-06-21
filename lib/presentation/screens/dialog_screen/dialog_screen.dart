@@ -125,17 +125,77 @@ class _DialogScreenState extends State<DialogScreen> {
                   _showDataPicer();
                 },
               ),
-              WEditItem(
-                subTitle: "Sarlavha",
-                controllers: titleController,
-                hintText: 'Sarlavha',
-                maxLines: 1,
+              Column(
+               mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+              const Padding(
+                padding: EdgeInsets.only(top: 20.0),
+                child: Text(
+                  "Sarlavha",
+                  style: TextStyle(
+                    color: Color(0xFFB2B3B7),
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ),
-              WEditItem(
-                subTitle: "Tavsif bering",
-                controllers: descriptionController,
-                hintText: 'Shu yerda yozing...',
-                maxLines: 2,
+              const SizedBox(height: 8),
+              TextField(
+                style: const TextStyle(color: Colors.white),
+                controller: titleController,
+                maxLines: 1,
+                decoration: InputDecoration(
+                  hintText: "Sarlavha",
+                  hintStyle: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xFFB2B3B7),
+                  ),
+                  filled: true,
+                  fillColor: AppColors.mainColor,
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(12)),
+                ),
+              ),
+            ],
+          ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(top: 20.0),
+                    child: Text(
+                      "Tavsif bering",
+                      style: TextStyle(
+                        color: Color(0xFFB2B3B7),
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  TextField(
+                    style: const TextStyle(color: Colors.white),
+                    controller: descriptionController,
+                    maxLines: 2,
+                    decoration: InputDecoration(
+                      hintText: "Shu yerga yozing",
+                      hintStyle: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xFFB2B3B7),
+                      ),
+                      filled: true,
+                      fillColor: AppColors.mainColor,
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(12)),
+                    ),
+                  ),
+                ],
               ),
               GestureDetector(
                 onTap: () {

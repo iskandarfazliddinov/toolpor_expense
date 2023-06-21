@@ -6,6 +6,7 @@ import 'package:toolpor_expense/presentation/resources/app_colors.dart';
 import 'package:toolpor_expense/presentation/resources/app_icons.dart';
 import 'package:toolpor_expense/presentation/resources/app_styles.dart';
 import 'package:toolpor_expense/presentation/screens/cubits/my_cubit/my_cubit.dart';
+import 'package:toolpor_expense/presentation/screens/edit_item/edit_item.dart';
 import 'package:toolpor_expense/presentation/screens/item_detail/item_detail.dart';
 import 'package:toolpor_expense/presentation/widgets/w_calendar.dart';
 import 'package:toolpor_expense/presentation/widgets/w_dialog.dart';
@@ -148,7 +149,14 @@ class _IncomeScreenState extends State<IncomeScreen> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const ItemDetail(),
+                                    builder: (context) => ItemDetail(
+                                      title: state.users[index].title,
+                                      categories: state.users[index].category,
+                                      data: state.users[index].calendar,
+                                      description:
+                                          state.users[index].description,
+                                      money: state.users[index].money,
+                                    ),
                                   ),
                                 );
                               },
@@ -162,13 +170,30 @@ class _IncomeScreenState extends State<IncomeScreen> {
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext contexts) {
-                                    return  WDialog(
+                                    return WDialog(
                                       text:
                                           'Haqiqatan ham bu elementni\no’chirib tashlamoqchimisiz?',
                                       dialogText: 'O’chirish',
-                                      dColor: const Color(0xFFCC2D63), index: index,
+                                      dColor: const Color(0xFFCC2D63),
+                                      index: index,
                                     );
                                   },
+                                );
+                              },
+                              onPresEdit: (BuildContext context) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => EditItem(
+                                      title: state.users[index].title,
+                                      categories: state.users[index].category,
+                                      date: state.users[index].calendar,
+                                      description:
+                                          state.users[index].description,
+                                      money: state.users[index].money,
+                                      icon: state.users[index].icon,
+                                    ),
+                                  ),
                                 );
                               },
                             ),
@@ -213,10 +238,11 @@ class _IncomeScreenState extends State<IncomeScreen> {
               showDialog(
                 context: context,
                 builder: (BuildContext contexts) {
-                  return  const WDialog(
+                  return const WDialog(
                     text: 'Ma’lumotlarni export qilishni\nxohlaysizmi?',
                     dialogText: 'Export qilish',
-                    dColor: Color(0xFF93EDC7), index: -1,
+                    dColor: Color(0xFF93EDC7),
+                    index: -1,
                   );
                 },
               );
