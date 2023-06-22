@@ -23,9 +23,9 @@ class WCategoriesColor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController controllers = TextEditingController();
+    TextEditingController controllersTitle = TextEditingController();
     int _index = -1;
-    int  indexColor = -1;
-    String icon = "";
+    int indexColor = -1;
 
     return Dialog(
       backgroundColor: Colors.transparent,
@@ -45,7 +45,8 @@ class WCategoriesColor extends StatelessWidget {
             WEditItem(
               subTitle: 'Sarlavha',
               hintText: "Sarlavha",
-              maxLines: 1, title: '',
+              maxLines: 1,
+              controllers: controllersTitle,
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -78,8 +79,9 @@ class WCategoriesColor extends StatelessWidget {
                             final myData = myDataNotifier.myData;
                             // Use myData in your widget
                             return GestureDetector(
-                              onTap: (){
-                                myDataNotifier.updateData(ColorData(index: listIndex));
+                              onTap: () {
+                                myDataNotifier
+                                    .updateData(ColorData(index: listIndex));
                                 indexColor = listIndex;
                               },
                               child: Container(
@@ -88,8 +90,7 @@ class WCategoriesColor extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                       color: Colors.white,
-                                      width: indexColor == listIndex ? 3 : 0
-                                  ),
+                                      width: indexColor == listIndex ? 3 : 0),
                                   color: colors[listIndex],
                                   borderRadius: BorderRadius.circular(
                                     28,
@@ -97,7 +98,9 @@ class WCategoriesColor extends StatelessWidget {
                                 ),
                                 height: 32,
                                 width: 32,
-                                child: indexColor == listIndex ? SvgPicture.asset(AppIcons.birdie):const SizedBox(),
+                                child: indexColor == listIndex
+                                    ? SvgPicture.asset(AppIcons.birdie)
+                                    : const SizedBox(),
                               ),
                             );
                           },
@@ -123,111 +126,118 @@ class WCategoriesColor extends StatelessWidget {
                       backgroundColor: Colors.transparent,
                       context: context,
                       builder: (BuildContext context) {
-                        return StatefulBuilder(builder:
-                            (BuildContext context, StateSetter setState) {
-                          return Container(
-                            height: MediaQuery.of(context).size.height * 0.6,
-                            decoration: const BoxDecoration(
-                              color: AppColors.backgroundColor,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20),
-                                topRight: Radius.circular(20),
-                              ),
-                            ),
-                            child: Column(
-                              children: [
-                                const Divider(
-                                  color: Colors.white,
-                                  endIndent: 170,
-                                  thickness: 2,
-                                  indent: 170,
+                        return StatefulBuilder(
+                          builder:
+                              (BuildContext context, StateSetter setState) {
+                            return Container(
+                              height: MediaQuery.of(context).size.height * 0.6,
+                              decoration: const BoxDecoration(
+                                color: AppColors.backgroundColor,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20),
                                 ),
-                                SizedBox(
-                                  width: double.infinity,
-                                  height: 380,
-                                  child: GridView.builder(
-                                    gridDelegate:
-                                        const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount:
-                                          5, // Number of columns in the grid
-                                    ),
-                                    itemCount: icons.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return Padding(
-                                        padding: const EdgeInsets.all(12.0),
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              _index = index;
-                                            });
-                                          },
-                                          child: Container(
-                                            width: 48,
-                                            height: 48,
-                                            padding: const EdgeInsets.all(12),
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                color: _index == index
-                                                    ? const Color(0xFF93EDC7)
-                                                    : AppColors.backgroundColor,
-                                                // Set the border color here
-                                                width:
-                                                    2, // Set the border width
+                              ),
+                              child: Column(
+                                children: [
+                                  const Divider(
+                                    color: Colors.white,
+                                    endIndent: 170,
+                                    thickness: 2,
+                                    indent: 170,
+                                  ),
+                                  SizedBox(
+                                    width: double.infinity,
+                                    height: 380,
+                                    child: GridView.builder(
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount:
+                                            5, // Number of columns in the grid
+                                      ),
+                                      itemCount: icons.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return Padding(
+                                          padding: const EdgeInsets.all(12.0),
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                _index = index;
+                                              });
+                                            },
+                                            child: Container(
+                                              width: 48,
+                                              height: 48,
+                                              padding: const EdgeInsets.all(12),
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                  color: _index == index
+                                                      ? const Color(0xFF93EDC7)
+                                                      : AppColors
+                                                          .backgroundColor,
+                                                  // Set the border color here
+                                                  width:
+                                                      2, // Set the border width
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(36),
                                               ),
-                                              borderRadius:
-                                                  BorderRadius.circular(36),
-                                            ),
-                                            child: SvgPicture.asset(
-                                              icons[index],
+                                              child: SvgPicture.asset(
+                                                icons[index],
+                                              ),
                                             ),
                                           ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      myDataNotifier.updateData(
+                                        MyData(
+                                          icon: icons[_index],
+                                          title: '',
                                         ),
                                       );
+                                      Navigator.pop(context);
                                     },
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    myDataNotifier.updateData(
-                                        MyData(icon: icons[_index], title: '',),);
-                                    Navigator.pop(context);
-                                  },
-                                  child: Container(
-                                    width: double.infinity,
-                                    height: 50,
-                                    margin: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(12),
-                                      gradient: const LinearGradient(
-                                        begin: Alignment.centerLeft,
-                                        end: Alignment.centerRight,
-                                        colors: [
-                                          Color(0xFF1CD8D2),
-                                          // Start color (#1CD8D2)
-                                          Color(0xFF93EDC7),
-                                          // End color (#93EDC7)
-                                        ],
-                                        stops: [0.0, 1.0],
-                                        // Adjust the stops as needed
-                                        transform: GradientRotation(
-                                            90), // Set the desired angle
+                                    child: Container(
+                                      width: double.infinity,
+                                      height: 50,
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 20),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(12),
+                                        gradient: const LinearGradient(
+                                          begin: Alignment.centerLeft,
+                                          end: Alignment.centerRight,
+                                          colors: [
+                                            Color(0xFF1CD8D2),
+                                            // Start color (#1CD8D2)
+                                            Color(0xFF93EDC7),
+                                            // End color (#93EDC7)
+                                          ],
+                                          stops: [0.0, 1.0],
+                                          // Adjust the stops as needed
+                                          transform: GradientRotation(
+                                              90), // Set the desired angle
+                                        ),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          "Belgi tanlash",
+                                          style: AppStyles.getItems()
+                                              .copyWith(color: Colors.black),
+                                        ),
                                       ),
                                     ),
-                                    child: Center(
-                                      child: Text(
-                                        "Belgi tanlash",
-                                        style: AppStyles.getItems()
-                                            .copyWith(color: Colors.black),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          );
-                        },);
+                                  )
+                                ],
+                              ),
+                            );
+                          },
+                        );
                       },
                     );
                   },
@@ -236,21 +246,24 @@ class WCategoriesColor extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                if (_index != -1 && controllers.text.isNotEmpty && indexColor != -1) {
-                  CategoryData   item =   CategoryData(
-                    title: controllers.text,
+                if (_index != -1 &&
+                    controllersTitle.text.isNotEmpty &&
+                    indexColor != -1) {
+                  CategoryData item = CategoryData(
+                    title: controllersTitle.text,
                     icon: icons[_index],
-                    color:colors[indexColor] ,
+                    color: colors[indexColor],
                   );
-                  context.read<CategoriesCubit>().addUser(
-                      item
-                      );
+                  print("item: $item");
+                  context.read<CategoriesCubit>().addUser(item);
                   categoryData.removeLast();
                   categoryData.add(item);
-                  categoryData.add(CategoryData(
-                      icon: "assets/icons_ellips/08.svg",
-                      title: "Yangi kategoriya qo'shish",
-                      color: Colors.white),);
+                  categoryData.add(
+                    CategoryData(
+                        icon: "assets/icons_ellips/08.svg",
+                        title: "Yangi kategoriya qo'shish",
+                        color: Colors.white),
+                  );
                 }
                 _index = -1;
                 indexColor = -1;

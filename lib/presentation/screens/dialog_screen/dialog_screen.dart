@@ -205,7 +205,7 @@ class _DialogScreenState extends State<DialogScreen> {
                       titleController.text != "") {
                     context.read<MyCubit>().addUser(
                           User(
-                              calendar: "${_dateTime.day}.${_dateTime.month}.${_dateTime.year}",
+                              calendar: _dateTime,
                               category: categoryData[catigroyIndex!].title,
                               description: descriptionController.text,
                               money: controller.text,

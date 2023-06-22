@@ -8,7 +8,7 @@ import 'package:toolpor_expense/presentation/widgets/w_detail_items.dart';
 class ItemDetail extends StatelessWidget {
   final String title;
   final String categories;
-  final String data;
+  final DateTime data;
   final String description;
   final String money;
 
@@ -80,7 +80,7 @@ class ItemDetail extends StatelessWidget {
               ),
               WDetailItems(
                 subTitle: 'Sana',
-                title: data,
+                title: "${data.day}.${data.month}.${data.year}",
                 appIcons: AppIcons.calendar,
                 iconDow: '',
                 onTab: () {},

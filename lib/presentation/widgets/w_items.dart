@@ -13,7 +13,7 @@ class WItems extends StatelessWidget {
   final GestureTapCallback onTab;
   final BuildContext contexts;
   final String title;
-  final String calendar;
+  final DateTime calendar;
   final String money;
   final String icon;
   final bool changes;
@@ -76,7 +76,7 @@ class WItems extends StatelessWidget {
                       style: AppStyles.getItems(),
                       children: <TextSpan>[
                         TextSpan(
-                            text: calendar,
+                            text: "${calendar.day}.${calendar.month}.${calendar.year}",
                             style: const TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Color(0xFFB2B3B7),

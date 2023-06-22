@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
+import 'package:toolpor_expense/presentation/catigory_data.dart';
 import 'package:toolpor_expense/presentation/resources/app_colors.dart';
 import 'package:toolpor_expense/presentation/resources/app_styles.dart';
+import 'package:toolpor_expense/presentation/screens/cubits/my_cubit/my_cubit.dart';
+import 'package:toolpor_expense/presentation/screens/cubits/my_cubit/user.dart';
 import 'package:toolpor_expense/presentation/widgets/w_calendar.dart';
+import 'package:toolpor_expense/presentation/widgets/w_categories.dart';
 import 'package:toolpor_expense/presentation/widgets/w_detail_items.dart';
 import 'package:toolpor_expense/presentation/widgets/w_edit_item.dart';
 
@@ -11,10 +16,12 @@ import '../../resources/app_icons.dart';
 class EditItem extends StatefulWidget {
   final String title;
   final String categories;
-  final String date;
+  final DateTime date;
   final String description;
   final String money;
   final String icon;
+  final int index;
+  final bool changes;
 
   const EditItem({
     required this.title,
@@ -23,6 +30,8 @@ class EditItem extends StatefulWidget {
     required this.description,
     required this.money,
     required this.icon,
+    required this.index,
+    required this.changes,
     super.key
   });
 
@@ -31,7 +40,26 @@ class EditItem extends StatefulWidget {
 }
 
 class _EditItemState extends State<EditItem> {
+  int? catigroyIndex;
   DateTime _dateTime = DateTime.now();
+  TextEditingController controllerTitle = TextEditingController();
+  TextEditingController controllerDescription = TextEditingController();
+  TextEditingController moneyController = TextEditingController();
+
+  void updateCategoriesData() async {
+    var a = await showModalBottomSheet(
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (BuildContext context) {
+        return const WCategories();
+      },
+    );
+    setState(() {
+      catigroyIndex = a;
+    });
+  }
+
   void _showDataPicer() {
     showDatePicker(
       context: context,
@@ -41,12 +69,24 @@ class _EditItemState extends State<EditItem> {
     ).then((value) => {
       setState(() {
           _dateTime = value!;
+
       })
     });
   }
 
+
+  @override
+  void initState() {
+
+    controllerTitle.text = widget.title;
+    controllerDescription.text = widget.description;
+    moneyController.text = widget.money;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SingleChildScrollView(
@@ -64,10 +104,18 @@ class _EditItemState extends State<EditItem> {
                       borderRadius: BorderRadius.circular(16.0),
                     ),
                     child:  Padding(
-                      padding:
-                      const EdgeInsets.symmetric(vertical: 8.0, horizontal: 28),
-                      child: Text(
-                        "${widget.money} so’m",
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 28),
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        controller: moneyController,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                          errorBorder: InputBorder.none,
+                          disabledBorder: InputBorder.none,
+                        ),
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 24,
@@ -77,27 +125,42 @@ class _EditItemState extends State<EditItem> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 16,),
-                WEditItem(subTitle: "Sarlavha", hintText: '', maxLines: 1, title: widget.title,),
+                const SizedBox(
+                  height: 16,
+                ),
+                WEditItem(
+                  subTitle: "Sarlavha",
+                  hintText: '',
+                  maxLines: 1,
+                  controllers: controllerTitle,
+                ),
                 WDetailItems(
                   subTitle: "Kategoriya",
-                  title: widget.categories,
-                  appIcons: widget.icon,
+                  title: catigroyIndex == null
+                      ? widget.categories
+                      : categoryData[catigroyIndex!].title,
+                  appIcons: catigroyIndex == null
+                      ? widget.icon
+                      : categoryData[catigroyIndex!].icon,
                   iconDow: AppIcons.down,
-                  onTab: () {
-
-                  },
+                  onTab: updateCategoriesData,
                 ),
                 WDetailItems(
                   subTitle: "Sana",
-                  title: "${_dateTime.day}.${_dateTime.month}.${_dateTime.year}",
+                  title:
+                      "${_dateTime.day}.${_dateTime.month}.${_dateTime.year}",
                   appIcons: AppIcons.calendar,
                   iconDow: AppIcons.down,
                   onTab: () {
                     _showDataPicer();
-                },
+                  },
                 ),
-                WEditItem(subTitle: "Tavsifi", hintText: '', maxLines: 1, title: widget.description,),
+                WEditItem(
+                  subTitle: "Tavsifi",
+                  hintText: '',
+                  maxLines: 1,
+                  controllers: controllerDescription,
+                ),
               ],
             ),
           ),
@@ -124,7 +187,23 @@ class _EditItemState extends State<EditItem> {
       ),
       GestureDetector(
         onTap: (){
-          Navigator.pop(context);
+              context.read<MyCubit>().editUser(
+                  widget.index,
+                  User(
+                      category:  catigroyIndex == null
+                          ? widget.categories
+                          : categoryData[catigroyIndex!].title,
+                      calendar: _dateTime,
+                      title: controllerTitle.text,
+                      description: controllerDescription.text,
+                      money: moneyController.text,
+                      icon: catigroyIndex == null
+                          ? widget.icon
+                          : categoryData[catigroyIndex!].icon,
+                      changes: widget.changes,
+                  ),
+              );
+              Navigator.pop(context);
         },
         child: SvgPicture.asset(
           AppIcons.birdie,

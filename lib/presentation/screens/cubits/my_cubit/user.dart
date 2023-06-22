@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class User{
   final String category;
-  final String calendar;
+  final DateTime calendar;
   final String title;
   final String description;
   final String money;

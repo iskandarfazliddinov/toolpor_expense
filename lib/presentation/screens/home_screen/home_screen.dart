@@ -7,6 +7,7 @@ import 'package:toolpor_expense/presentation/screens/dialog_screen/dialog_screen
 import 'package:toolpor_expense/presentation/screens/edit_item/edit_item.dart';
 import 'package:toolpor_expense/presentation/screens/income_screen/income_screen.dart';
 import 'package:toolpor_expense/presentation/widgets/w_detail_items.dart';
+import 'package:toolpor_expense/presentation/widgets/w_diogramma.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,7 +17,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -74,7 +74,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           style: AppStyles.getItems(),
                         ),
                         Container(
-                          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 4, horizontal: 8),
                           decoration: BoxDecoration(
                             border: Border.all(
                               color: const Color(0xFF292B2F),
@@ -105,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 250),
+                  const SizedBox(height: 300, child: CircularChart()),
                   Container(
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     decoration: const BoxDecoration(
@@ -119,8 +120,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         GestureDetector(
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const IncomeScreen(),),);
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const IncomeScreen(),
+                              ),
+                            );
                           },
                           child: Row(
                             children: [
@@ -142,8 +148,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         GestureDetector(
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const IncomeScreen(),));
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const IncomeScreen(),
+                                ));
                           },
                           child: Row(
                             children: [
@@ -183,9 +193,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         builder: (BuildContext context) {
                           return Padding(
                             padding: EdgeInsets.only(
-                                bottom: MediaQuery.of(context).viewInsets.bottom,
+                              bottom: MediaQuery.of(context).viewInsets.bottom,
                             ),
-                            child:  const DialogScreen(change: true),
+                            child: const DialogScreen(change: true),
                           );
                         },
                       );
@@ -240,7 +250,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             padding: EdgeInsets.only(
                               bottom: MediaQuery.of(context).viewInsets.bottom,
                             ),
-                            child:  const DialogScreen(change: false),
+                            child: const DialogScreen(change: false),
                           );
                         },
                       );

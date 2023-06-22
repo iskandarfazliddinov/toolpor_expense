@@ -188,10 +188,11 @@ class _IncomeScreenState extends State<IncomeScreen> {
                                       title: state.users[index].title,
                                       categories: state.users[index].category,
                                       date: state.users[index].calendar,
-                                      description:
-                                          state.users[index].description,
+                                      description: state.users[index].description,
                                       money: state.users[index].money,
                                       icon: state.users[index].icon,
+                                      index: index,
+                                      changes: state.users[index].changes,
                                     ),
                                   ),
                                 );
