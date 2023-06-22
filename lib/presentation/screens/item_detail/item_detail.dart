@@ -10,7 +10,7 @@ class ItemDetail extends StatelessWidget {
   final String categories;
   final DateTime data;
   final String description;
-  final String money;
+  final int money;
 
   const ItemDetail(
       {required this.title,

@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:toolpor_expense/presentation/resources/app_colors.dart';
 
 class CircularChart extends StatelessWidget {
-  const CircularChart({super.key});
+  final double expenses;
+  final double revenues;
+  final int totalCosts;
+
+  const CircularChart({required this.expenses,required this.revenues,required this.totalCosts,super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +46,7 @@ class CircularChart extends StatelessWidget {
               data: [
                 PieChartData(
                     const Color(0xFFFF725F),
-                    50,
+                    expenses,
                     ui.Gradient.radial(
                       const Offset(0.1, 0.1),
                       500,
@@ -53,7 +57,7 @@ class CircularChart extends StatelessWidget {
                     )),
                 PieChartData(
                     const Color(0xFF1CD8D2),
-                    50,
+                    revenues ,
                     ui.Gradient.radial(
                       const Offset(0.1, 0.1),
                       500,
@@ -64,22 +68,22 @@ class CircularChart extends StatelessWidget {
                     )),
               ],
               radius: 60,
-              child: const Column(
+              child:  Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     'Xarajatlar',
                     style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
                         color: Colors.white),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 12,
                   ),
                   Text(
-                    "2 226 000 so'm",
-                    style: TextStyle(
+                    "$totalCosts so'm",
+                    style: const TextStyle(
                       fontSize: 16,
                       color: Colors.white,
                       fontWeight: FontWeight.w700,

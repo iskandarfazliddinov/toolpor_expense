@@ -72,7 +72,7 @@ Widget leftTitlesWidget(double value, TitleMeta meta){
   return Text(text,style: style,textAlign: TextAlign.center,);
 }
 
-SideTitles leftTitles() => SideTitles(
+SideTitles leftTitles() => const SideTitles(
     getTitlesWidget: leftTitlesWidget,
     showTitles: true,
     interval: 1,

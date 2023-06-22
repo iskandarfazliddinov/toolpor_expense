@@ -5,7 +5,7 @@ class User{
   final DateTime calendar;
   final String title;
   final String description;
-  final String money;
+  final int money;
   final String icon;
   final bool changes;
 

@@ -18,7 +18,7 @@ class EditItem extends StatefulWidget {
   final String categories;
   final DateTime date;
   final String description;
-  final String money;
+  final int money;
   final String icon;
   final int index;
   final bool changes;
@@ -80,7 +80,7 @@ class _EditItemState extends State<EditItem> {
 
     controllerTitle.text = widget.title;
     controllerDescription.text = widget.description;
-    moneyController.text = widget.money;
+    moneyController.text = widget.money.toString();
     super.initState();
   }
 
@@ -196,7 +196,7 @@ class _EditItemState extends State<EditItem> {
                       calendar: _dateTime,
                       title: controllerTitle.text,
                       description: controllerDescription.text,
-                      money: moneyController.text,
+                      money: int.parse(moneyController.text),
                       icon: catigroyIndex == null
                           ? widget.icon
                           : categoryData[catigroyIndex!].icon,

@@ -13,6 +13,8 @@ import 'package:toolpor_expense/presentation/widgets/w_dialog.dart';
 import 'package:toolpor_expense/presentation/widgets/w_items.dart';
 import 'package:toolpor_expense/presentation/widgets/w_lineChart.dart';
 
+import '../../catigory_data.dart';
+
 class IncomeScreen extends StatefulWidget {
   const IncomeScreen({super.key});
 

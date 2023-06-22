@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:toolpor_expense/presentation/resources/app_icons.dart';
 import 'package:toolpor_expense/presentation/screens/cubits/categories_cubit/category.dart';
 
+import 'screens/cubits/my_cubit/user.dart';
+
 List<CategoryData> categoryData = [
   CategoryData(icon: "assets/icons_ellips/01.svg", title: "Oziq-ovqatlar", color: Colors.white),
   CategoryData(icon: "assets/icons_ellips/02.svg", title: "Ta’lim", color: Colors.white),
@@ -60,3 +62,5 @@ List<String> icons = [
   "assets/icons_categories/34.svg",
   "assets/icons_categories/35.svg",
 ];
+
+List<User> listDiogramma = [];

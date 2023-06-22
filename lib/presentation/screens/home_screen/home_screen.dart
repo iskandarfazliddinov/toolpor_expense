@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:toolpor_expense/presentation/resources/app_colors.dart';
 import 'package:toolpor_expense/presentation/resources/app_icons.dart';
 import 'package:toolpor_expense/presentation/resources/app_styles.dart';
+import 'package:toolpor_expense/presentation/screens/cubits/my_cubit/my_cubit.dart';
 import 'package:toolpor_expense/presentation/screens/dialog_screen/dialog_screen.dart';
-import 'package:toolpor_expense/presentation/screens/edit_item/edit_item.dart';
 import 'package:toolpor_expense/presentation/screens/income_screen/income_screen.dart';
-import 'package:toolpor_expense/presentation/widgets/w_detail_items.dart';
 import 'package:toolpor_expense/presentation/widgets/w_diogramma.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -106,7 +106,42 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 300, child: CircularChart()),
+                  BlocBuilder<MyCubit, MyState>(
+                    builder: (context, state) {
+                      if (state is UsersLoaded) {
+                        double totalCosts = 0;
+                        double expenses = 0;
+                        double revenues = 0;
+                        double expensesAll = 0;
+
+                          for (var index = 0; index < state.users.length; index++) {
+                            if(state.users[index].money <0){
+                              expenses += state.users[index].money;
+                            }else{
+                              revenues += state.users[index].money;
+                            }
+                          }
+                          expenses = expenses *(-1);
+                          expensesAll = expenses;
+                          totalCosts = (expenses+revenues);
+                          expenses = expenses*100/totalCosts;
+                          revenues = revenues*100/totalCosts;
+
+                        return SizedBox(
+                          height: 300,
+                          child: CircularChart(
+                            expenses: expenses,
+                            revenues: revenues,
+                            totalCosts: expensesAll.toInt(),
+                          ),
+                        );
+                      } else {
+                        return const SizedBox(
+                          height: 300,
+                        );
+                      }
+                    },
+                  ),
                   Container(
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     decoration: const BoxDecoration(

@@ -14,24 +14,23 @@ class WItems extends StatelessWidget {
   final BuildContext contexts;
   final String title;
   final DateTime calendar;
-  final String money;
+  final int money;
   final String icon;
   final bool changes;
   final SlidableActionCallback onPresDel;
   final SlidableActionCallback onPresEdit;
 
-  const WItems({
-    required this.onTab,
-    required this.contexts,
-    super.key,
-    required this.title,
-    required this.calendar,
-    required this.money,
-    required this.icon,
-    required this.changes,
-    required this.onPresDel,
-    required this.onPresEdit
-  });
+  const WItems(
+      {required this.onTab,
+      required this.contexts,
+      super.key,
+      required this.title,
+      required this.calendar,
+      required this.money,
+      required this.icon,
+      required this.changes,
+      required this.onPresDel,
+      required this.onPresEdit});
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +75,8 @@ class WItems extends StatelessWidget {
                       style: AppStyles.getItems(),
                       children: <TextSpan>[
                         TextSpan(
-                            text: "${calendar.day}.${calendar.month}.${calendar.year}",
+                            text:
+                                "${calendar.day}.${calendar.month}.${calendar.year}",
                             style: const TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Color(0xFFB2B3B7),
@@ -87,7 +87,7 @@ class WItems extends StatelessWidget {
                 ],
               ),
               Text(
-                changes ? "+$money s." : "-$money s.",
+                changes ? "+$money s." : "${money * (-1)} s.",
                 style: TextStyle(
                   fontSize: 14.0,
                   color: changes ? const Color(0xFF93EDC7) : Colors.redAccent,

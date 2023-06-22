@@ -82,6 +82,7 @@ class _DialogScreenState extends State<DialogScreen> {
               TextField(
                 textAlign: TextAlign.center,
                 controller: controller,
+                keyboardType: TextInputType.number,
                 style: TextStyle(
                   color: widget.change
                       ? const Color(0xFF93EDC7)
@@ -208,7 +209,7 @@ class _DialogScreenState extends State<DialogScreen> {
                               calendar: _dateTime,
                               category: categoryData[catigroyIndex!].title,
                               description: descriptionController.text,
-                              money: controller.text,
+                              money: widget.change ? int.parse(controller.text):int.parse(controller.text)*(-1),
                               title: titleController.text,
                               icon: categoryData[catigroyIndex!].icon,
                             changes: widget.change,
