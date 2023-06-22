@@ -22,10 +22,10 @@ class WCategoriesColor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController controllers = TextEditingController();
     TextEditingController controllersTitle = TextEditingController();
     int _index = -1;
     int indexColor = -1;
+    bool changes = false;
 
     return Dialog(
       backgroundColor: Colors.transparent,
@@ -118,9 +118,10 @@ class WCategoriesColor extends StatelessWidget {
                 return WDetailItems(
                   subTitle: '',
                   title: myData.title,
-                  appIcons: myData.icon,
+                  appIcons: changes ? myData.icon : "",
                   iconDow: AppIcons.down,
                   onTab: () {
+                    changes = true;
                     showModalBottomSheet(
                       isScrollControlled: true,
                       backgroundColor: Colors.transparent,
@@ -254,7 +255,6 @@ class WCategoriesColor extends StatelessWidget {
                     icon: icons[_index],
                     color: colors[indexColor],
                   );
-                  print("item: $item");
                   context.read<CategoriesCubit>().addUser(item);
                   categoryData.removeLast();
                   categoryData.add(item);
@@ -267,6 +267,7 @@ class WCategoriesColor extends StatelessWidget {
                 }
                 _index = -1;
                 indexColor = -1;
+
                 Navigator.of(context).pop();
               },
               child: Container(
