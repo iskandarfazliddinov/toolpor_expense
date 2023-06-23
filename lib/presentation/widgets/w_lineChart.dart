@@ -7,7 +7,7 @@ class WLineChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LineChart(
-        duration: Duration(milliseconds: 250),
+        duration: const Duration(milliseconds: 250),
         sampleData
     );
   }
@@ -19,9 +19,9 @@ LineChartData get sampleData => LineChartData(
     borderData: borderData,
     lineBarsData: lineBarsData,
     minX: 0,
-    maxX: 14,
+    maxX: 8,
     minY: 0,
-    maxY: 4
+    maxY: 8
 );
 
 List<LineChartBarData> get lineBarsData => [
@@ -32,10 +32,10 @@ FlTitlesData get titlesData => FlTitlesData(
     bottomTitles: AxisTitles(
       sideTitles: bottomTitles,
     ),
-    rightTitles: AxisTitles(
+    rightTitles: const AxisTitles(
       sideTitles: SideTitles(showTitles: false),
     ),
-    topTitles: AxisTitles(
+    topTitles: const AxisTitles(
       sideTitles: SideTitles(showTitles: false),
     ),
     leftTitles: AxisTitles(
@@ -52,19 +52,28 @@ Widget leftTitlesWidget(double value, TitleMeta meta){
   String text;
   switch (value.toInt()){
     case 1:
-      text = "1m";
+      text = "";
       break;
     case 2:
-      text = "2m";
+      text = "";
       break;
     case 3:
-      text = "3m";
+      text = "";
       break;
     case 4:
-      text = "4m";
+      text = "";
       break;
     case 5:
-      text = "5m";
+      text = "";
+      break;
+    case 6:
+      text = "";
+      break;
+    case 7:
+      text = "";
+      break;
+    case 8:
+      text = "";
       break;
     default:
       return Container();
@@ -76,7 +85,6 @@ SideTitles leftTitles() => const SideTitles(
     getTitlesWidget: leftTitlesWidget,
     showTitles: true,
     interval: 1,
-    reservedSize: 40
 );
 
 Widget bottomTitlesWidgets(double value, TitleMeta meta){
@@ -87,14 +95,29 @@ Widget bottomTitlesWidgets(double value, TitleMeta meta){
   );
   Widget text;
   switch(value.toInt()){
+    case 1 :
+      text = const Text('1',style: style);
+      break;
     case 2 :
-      text = const Text('2020',style: style);
+      text = const Text('2',style: style);
+      break;
+    case 3 :
+      text = const Text('3',style: style);
+      break;
+    case 4 :
+      text = const Text('4',style: style);
+      break;
+    case 5 :
+      text = const Text('5',style: style);
+      break;
+    case 6 :
+      text = const Text('6',style: style);
       break;
     case 7 :
-      text = const Text('2021',style: style);
+      text = const Text('7',style: style);
       break;
-    case 12 :
-      text = const Text('2022',style: style);
+    case 8 :
+      text = const Text('8',style: style);
       break;
     default:
       text = const Text('');
@@ -102,44 +125,45 @@ Widget bottomTitlesWidgets(double value, TitleMeta meta){
   }
   return SideTitleWidget(
     axisSide: meta.axisSide,
-    space: 10,
+    space: 0,
     child: text,
   );
 }
 
-SideTitles get bottomTitles => SideTitles(
+SideTitles get bottomTitles => const SideTitles(
   showTitles: true,
   reservedSize: 32,
   interval: 1,
   getTitlesWidget: bottomTitlesWidgets,
 );
 
-FlGridData get gridData => FlGridData(show: false);
+FlGridData get gridData => const FlGridData(show: false);
 
 FlBorderData get borderData => FlBorderData(
   show: true,
-  border: Border(
-    bottom: BorderSide(color: Colors.grey, width: 4),
-    left: const BorderSide(color: Colors.grey),
-    right: const BorderSide(color: Colors.transparent),
-    top: const BorderSide(color: Colors.transparent),
+  border: const Border(
+    bottom: BorderSide(color: Colors.transparent, width: 4,),
+    left: BorderSide(color: Colors.transparent),
+    right: BorderSide(color: Colors.transparent),
+    top: BorderSide(color: Colors.transparent),
   ),
 );
 
 LineChartBarData get lineCharBarData => LineChartBarData(
     isCurved: true,
-    color: Colors.purple,
-    barWidth: 6,
+    color: const Color(0xFF93EDC7),
+    barWidth: 2,
     isStrokeCapRound: true,
-    dotData: FlDotData(show: false),
+    dotData: const FlDotData(show: false),
     belowBarData: BarAreaData(show: false),
     spots: const [
       FlSpot(1, 1),
-      FlSpot(3, 1.5),
-      FlSpot(5, 1.6),
-      FlSpot(7, 3.4),
-      FlSpot(10, 2),
-      FlSpot(12, 2.5),
-      FlSpot(13, 1.6),
+      FlSpot(2, 2),
+      FlSpot(3, 3),
+      FlSpot(4, 3),
+      FlSpot(5, 2),
+      FlSpot(6, 2),
+      FlSpot(7, 1),
+
     ]
 );

@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:provider/provider.dart';
+import 'package:toolpor_expense/presentation/catigory_data.dart';
 import 'package:toolpor_expense/presentation/resources/app_colors.dart';
-import 'package:toolpor_expense/presentation/resources/app_icons.dart';
 import 'package:toolpor_expense/presentation/resources/app_styles.dart';
-import 'package:toolpor_expense/presentation/screens/cubits/my_cubit/my_cubit.dart';
-import 'package:toolpor_expense/presentation/screens/edit_item/edit_item.dart';
-import 'package:toolpor_expense/presentation/widgets/w_dialog.dart';
 
 class WItems extends StatelessWidget {
   final GestureTapCallback onTab;
@@ -17,20 +13,23 @@ class WItems extends StatelessWidget {
   final int money;
   final String icon;
   final bool changes;
+  final Color color;
   final SlidableActionCallback onPresDel;
   final SlidableActionCallback onPresEdit;
 
-  const WItems(
-      {required this.onTab,
-      required this.contexts,
-      super.key,
-      required this.title,
-      required this.calendar,
-      required this.money,
-      required this.icon,
-      required this.changes,
-      required this.onPresDel,
-      required this.onPresEdit});
+  const WItems({
+    required this.onTab,
+    required this.contexts,
+    required this.title,
+    required this.calendar,
+    required this.money,
+    required this.icon,
+    required this.changes,
+    required this.onPresDel,
+    required this.onPresEdit,
+    required this.color,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +66,16 @@ class WItems extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  SvgPicture.asset(icon),
+                  Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                          color: color ?? Colors.yellow,
+                          borderRadius: BorderRadius.circular(40)),
+                      child: Padding(
+                        padding: EdgeInsets.all(color == Colors.white ? 0 :8.0),
+                        child: SvgPicture.asset(icon),
+                      )),
                   const SizedBox(width: 12.0),
                   RichText(
                     text: TextSpan(
@@ -87,7 +95,7 @@ class WItems extends StatelessWidget {
                 ],
               ),
               Text(
-                changes ? "+$money s." : "${money * (-1)} s.",
+                changes ? "+$money s." : "-${money * (-1)} s.",
                 style: TextStyle(
                   fontSize: 14.0,
                   color: changes ? const Color(0xFF93EDC7) : Colors.redAccent,

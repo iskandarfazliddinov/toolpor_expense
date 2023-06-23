@@ -11,14 +11,19 @@ class ItemDetail extends StatelessWidget {
   final DateTime data;
   final String description;
   final int money;
+  final String icons;
+  final Color color;
 
-  const ItemDetail(
-      {required this.title,
-      required this.categories,
-      required this.data,
-      required this.description,
-      required this.money,
-      super.key});
+  const ItemDetail({
+    required this.title,
+    required this.categories,
+    required this.data,
+    required this.description,
+    required this.money,
+    required this.icons,
+    required this.color,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,26 +40,14 @@ class ItemDetail extends StatelessWidget {
                 child: Container(
                   margin: const EdgeInsets.only(top: 28.0),
                   decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [
-                        Color(0xFF1CD8D2),
-                        Color(0xFF93EDC7),
-                      ],
-                      stops: [
-                        -0.1504,
-                        1.1504,
-                      ],
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                      transform: GradientRotation(90 * 3.14159 / 180),
-                    ),
+                    color:money > 0 ?  const Color(0xFF93EDC7): const Color(0xFFFE9A7B),
                     borderRadius: BorderRadius.circular(16.0),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 28),
                     child: Text(
-                      "$money so’m",
+                      money>0 ?"+$money so’m" : "$money so’m",
                       style: const TextStyle(
                         color: Color(0xFF121418),
                         fontSize: 24,
@@ -71,12 +64,64 @@ class ItemDetail extends StatelessWidget {
                 iconDow: "",
                 onTab: () {},
               ),
-              WDetailItems(
-                subTitle: 'Kategoriya',
-                title: categories,
-                appIcons: AppIcons.apple_elips,
-                iconDow: '',
-                onTab: () {},
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(top: 20.0),
+                    child: Text(
+                      "Kategoriya",
+                      style: TextStyle(
+                        color: Color(0xFFB2B3B7),
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.mainColor,
+                      borderRadius: BorderRadius.circular(
+                        12.0,
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 20.0),
+                              child: Container(
+                                padding:  EdgeInsets.all(color == Colors.white ? 0 : 8),
+                                width: 40,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(40),
+                                    color: color ?? Colors.white
+                                  ),
+                                  child: SvgPicture.asset(icons),
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 16.0),
+                              child: Text(
+                                categories,
+                                style: AppStyles.getItems().copyWith(
+                                  color: const Color(0xFFB2B3B7),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
+                ],
               ),
               WDetailItems(
                 subTitle: 'Sana',

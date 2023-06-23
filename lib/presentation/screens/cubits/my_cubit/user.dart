@@ -8,6 +8,7 @@ class User{
   final int money;
   final String icon;
   final bool changes;
+  final Color color;
 
   User({
    required this.category,
@@ -16,6 +17,7 @@ class User{
    required this.description,
     required this.money,
     required this.icon,
-    required this.changes
+    required this.changes,
+    required this.color
 });
 }

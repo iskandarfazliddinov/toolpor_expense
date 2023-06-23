@@ -7,12 +7,8 @@ import 'package:toolpor_expense/presentation/resources/app_icons.dart';
 import 'package:toolpor_expense/presentation/resources/app_styles.dart';
 import 'package:toolpor_expense/presentation/screens/cubits/my_cubit/my_cubit.dart';
 import 'package:toolpor_expense/presentation/screens/cubits/my_cubit/user.dart';
-import 'package:toolpor_expense/presentation/screens/home_screen/home_screen.dart';
-import 'package:toolpor_expense/presentation/screens/income_screen/income_screen.dart';
 import 'package:toolpor_expense/presentation/widgets/w_categories.dart';
-import 'package:toolpor_expense/presentation/widgets/w_dataPicer.dart';
 import '../../widgets/w_detail_items.dart';
-import '../../widgets/w_edit_item.dart';
 
 class DialogScreen extends StatefulWidget {
   final bool change;
@@ -106,16 +102,67 @@ class _DialogScreenState extends State<DialogScreen> {
                   color: Color(0xFFB2B3B7),
                 ),
               ),
-              WDetailItems(
-                  subTitle: '',
-                  title: catigroyIndex == null
-                      ? 'Kategoriyani tanlang'
-                      : categoryData[catigroyIndex!].title,
-                  appIcons: catigroyIndex == null
-                      ? ''
-                      : categoryData[catigroyIndex!].icon,
-                  iconDow: AppIcons.down,
-                  onTab: updateCatigoryData
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 8),
+                  GestureDetector(
+                    onTap: updateCatigoryData,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: AppColors.mainColor,
+                        borderRadius: BorderRadius.circular(
+                          12.0,
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: catigroyIndex == null ? 0 : 20.0),
+                                child: Container(
+                                  height: 40,
+                                  width: 40,
+                                  decoration: BoxDecoration(
+                                      color: catigroyIndex != null && categoryData[catigroyIndex!].color != Colors.white? categoryData[catigroyIndex!].color: AppColors.mainColor,
+                                      borderRadius: BorderRadius.circular(44)
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.all(catigroyIndex != null && categoryData[catigroyIndex!].color != Colors.white ? 8 : 0),
+                                    child: catigroyIndex != null ? SvgPicture.asset(
+                                      catigroyIndex == null
+                                          ? ''
+                                          : categoryData[catigroyIndex!].icon,
+                                    ):const SizedBox(),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: catigroyIndex == null ? 0 :12),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 16.0),
+                                child: Text(
+                                  catigroyIndex == null
+                                      ? 'Kategoriyani tanlang'
+                                      : categoryData[catigroyIndex!].title,
+                                  style: AppStyles.getItems(),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 16),
+                            child: SvgPicture.asset(AppIcons.down),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
               ),
               WDetailItems(
                 subTitle: "",
@@ -212,7 +259,8 @@ class _DialogScreenState extends State<DialogScreen> {
                               money: widget.change ? int.parse(controller.text):int.parse(controller.text)*(-1),
                               title: titleController.text,
                               icon: categoryData[catigroyIndex!].icon,
-                            changes: widget.change,
+                              changes: widget.change,
+                              color: categoryData[catigroyIndex!].color,
                           ),
                         );
                     Navigator.of(context).pop();

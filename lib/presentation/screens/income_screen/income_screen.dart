@@ -1,4 +1,3 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -12,8 +11,6 @@ import 'package:toolpor_expense/presentation/widgets/w_calendar.dart';
 import 'package:toolpor_expense/presentation/widgets/w_dialog.dart';
 import 'package:toolpor_expense/presentation/widgets/w_items.dart';
 import 'package:toolpor_expense/presentation/widgets/w_lineChart.dart';
-
-import '../../catigory_data.dart';
 
 class IncomeScreen extends StatefulWidget {
   const IncomeScreen({super.key});
@@ -92,13 +89,29 @@ class _IncomeScreenState extends State<IncomeScreen> {
                             "Statistika",
                             style: AppStyles.getItems(),
                           ),
-                          const Text(
-                            "+5 250 000 so’m",
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w700,
-                              color: Color(0xFF93EDC7),
-                            ),
+                          BlocBuilder<MyCubit, MyState>(
+                            builder: (context, state) {
+                              if (state is UsersLoaded) {
+                                double totalCosts = 0;
+                                for (var index = 0;
+                                    index < state.users.length;
+                                    index++) {
+                                  totalCosts += state.users[index].money;
+                                }
+                                return Text(
+                                  "$totalCosts so’m",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700,
+                                    color: totalCosts > 0
+                                        ? const Color(0xFF93EDC7)
+                                        : const Color(0xFFFE9A7B),
+                                  ),
+                                );
+                              } else {
+                                return const SizedBox();
+                              }
+                            },
                           ),
                         ],
                       ),
@@ -147,58 +160,62 @@ class _IncomeScreenState extends State<IncomeScreen> {
                             shrinkWrap: true,
                             itemCount: state.users.length,
                             itemBuilder: (context, index) => WItems(
-                              onTab: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ItemDetail(
-                                      title: state.users[index].title,
-                                      categories: state.users[index].category,
-                                      data: state.users[index].calendar,
-                                      description:
-                                          state.users[index].description,
-                                      money: state.users[index].money,
+                                onTab: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ItemDetail(
+                                        title: state.users[index].title,
+                                        categories: state.users[index].category,
+                                        data: state.users[index].calendar,
+                                        description:
+                                            state.users[index].description,
+                                        money: state.users[index].money,
+                                        icons: state.users[index].icon,
+                                        color: state.users[index].color,
+                                      ),
                                     ),
-                                  ),
-                                );
-                              },
-                              contexts: context,
-                              title: state.users[index].title,
-                              calendar: state.users[index].calendar,
-                              money: state.users[index].money,
-                              icon: state.users[index].icon,
-                              changes: state.users[index].changes,
-                              onPresDel: (BuildContext context) {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext contexts) {
-                                    return WDialog(
-                                      text:
-                                          'Haqiqatan ham bu elementni\no’chirib tashlamoqchimisiz?',
-                                      dialogText: 'O’chirish',
-                                      dColor: const Color(0xFFCC2D63),
-                                      index: index,
-                                    );
-                                  },
-                                );
-                              },
-                              onPresEdit: (BuildContext context) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => EditItem(
-                                      title: state.users[index].title,
-                                      categories: state.users[index].category,
-                                      date: state.users[index].calendar,
-                                      description: state.users[index].description,
-                                      money: state.users[index].money,
-                                      icon: state.users[index].icon,
-                                      index: index,
-                                      changes: state.users[index].changes,
+                                  );
+                                },
+                                contexts: context,
+                                title: state.users[index].title,
+                                calendar: state.users[index].calendar,
+                                money: state.users[index].money,
+                                icon: state.users[index].icon,
+                                changes: state.users[index].changes,
+                                onPresDel: (BuildContext context) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext contexts) {
+                                      return WDialog(
+                                        text:
+                                            'Haqiqatan ham bu elementni\no’chirib tashlamoqchimisiz?',
+                                        dialogText: 'O’chirish',
+                                        dColor: const Color(0xFFCC2D63),
+                                        index: index,
+                                      );
+                                    },
+                                  );
+                                },
+                                onPresEdit: (BuildContext context) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => EditItem(
+                                        title: state.users[index].title,
+                                        categories: state.users[index].category,
+                                        date: state.users[index].calendar,
+                                        description:
+                                            state.users[index].description,
+                                        money: state.users[index].money,
+                                        icon: state.users[index].icon,
+                                        index: index,
+                                        changes: state.users[index].changes, color: state.users[index].color,
+                                      ),
                                     ),
-                                  ),
-                                );
-                              },
+                                  );
+                                },
+                                color: state.users[index].color,
                             ),
                           ),
                         );
