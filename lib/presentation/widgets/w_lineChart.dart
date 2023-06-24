@@ -5,8 +5,9 @@ import 'package:toolpor_expense/presentation/resources/app_colors.dart';
 
 class WLineChart extends StatelessWidget {
   final LineChartBarData lineChartBarData ;
+  final bool change;
 
-  const WLineChart({required this.lineChartBarData,super.key});
+  const WLineChart({required this.lineChartBarData,required this.change,super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,11 +15,11 @@ class WLineChart extends StatelessWidget {
       LineChartData(
         lineTouchData: LineTouchData(
           touchTooltipData: LineTouchTooltipData(
-            tooltipBgColor: const Color(0xFF3FDECE),
+            tooltipBgColor: change ? const Color(0xFF3FDECE):const Color(0xFFFE9A7B) ,
             getTooltipItems: (List<LineBarSpot> lineBarsSpot) {
               return lineBarsSpot.map((lineBarSpot) {
                 return LineTooltipItem(
-                  "${lineBarSpot.y.toStringAsFixed(0)} so'm",
+                  change ? "${lineBarSpot.y.toStringAsFixed(0)} so'm":"-${lineBarSpot.y.toStringAsFixed(0)} so'm",
                   const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w600,

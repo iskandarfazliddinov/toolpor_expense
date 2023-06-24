@@ -159,7 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const IncomeScreen(),
+                                builder: (context) => const IncomeScreen(boolType: true,),
                               ),
                             );
                           },
@@ -187,7 +187,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const IncomeScreen(),
+                                  builder: (context) => const IncomeScreen(boolType: false,),
                                 ));
                           },
                           child: Row(

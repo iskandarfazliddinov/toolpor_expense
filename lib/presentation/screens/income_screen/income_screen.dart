@@ -14,7 +14,9 @@ import 'package:toolpor_expense/presentation/widgets/w_items.dart';
 import 'package:toolpor_expense/presentation/widgets/w_lineChart.dart';
 
 class IncomeScreen extends StatefulWidget {
-  const IncomeScreen({super.key});
+  final bool boolType;
+
+  const IncomeScreen({required this.boolType,super.key});
 
   @override
   State<IncomeScreen> createState() => _IncomeScreenState();
@@ -94,10 +96,15 @@ class _IncomeScreenState extends State<IncomeScreen> {
                             builder: (context, state) {
                               if (state is UsersLoaded) {
                                 double totalCosts = 0;
-                                for (var index = 0;
-                                    index < state.users.length;
-                                    index++) {
-                                  totalCosts += state.users[index].money;
+                                for (var index = 0; index < state.users.length; index++) {
+                                  if(widget.boolType){
+                                    if(state.users[index].money>0){
+                                      totalCosts += state.users[index].money;
+                                    }
+                                  }else if(state.users[index].money<0){
+                                    totalCosts += state.users[index].money;
+                                  }
+
                                 }
                                 return Text(
                                   "$totalCosts so’m",
@@ -122,9 +129,16 @@ class _IncomeScreenState extends State<IncomeScreen> {
                         if (state is UsersLoaded) {
                           List<FlSpot> flSpot = [];
                           flSpot.clear();
+                          var j = 0 , k = 0;
                           for(var i=0 ; i< state.users.length ; i++){
-                            if(state.users[i].money>0){
-                              flSpot.add(FlSpot(i.toDouble(), state.users[i].money.toDouble()));
+                            if(widget.boolType){
+                              if(state.users[i].money>0){
+                                flSpot.add(FlSpot(j.toDouble(), state.users[i].money.toDouble()));
+                                j++;
+                              }
+                            }else if(state.users[i].money<0){
+                              flSpot.add(FlSpot(k.toDouble(), state.users[i].money.toDouble()*(-1)));
+                              k++;
                             }
                           }
                           return  Container(
@@ -140,11 +154,11 @@ class _IncomeScreenState extends State<IncomeScreen> {
                                 belowBarData: BarAreaData(
                                   show: true,
                                 ),
-                              ),
+                              ), change: widget.boolType,
                             ),
                           );
                         } else {
-                          return const SizedBox();
+                          return const SizedBox(height: 300,);
                         }
                       },
                     ),
@@ -247,7 +261,7 @@ class _IncomeScreenState extends State<IncomeScreen> {
                           ),
                         );
                       } else {
-                        return const SizedBox();
+                        return const SizedBox(height: 200,);
                       }
                     },
                   ),
@@ -261,10 +275,10 @@ class _IncomeScreenState extends State<IncomeScreen> {
   }
 
   _getAppBar() => AppBar(
-        title: const Center(
+        title:  Center(
           child: Text(
-            "Daromadlar",
-            style: TextStyle(
+            widget.boolType ? "Daromadlar":"Xarajatlar",
+            style: const TextStyle(
                 color: Colors.white,
                 fontSize: 16.0,
                 fontWeight: FontWeight.w600),
