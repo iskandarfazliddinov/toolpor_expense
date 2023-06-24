@@ -9,7 +9,6 @@ import 'package:toolpor_expense/presentation/screens/cubits/my_cubit/user.dart';
 import 'package:toolpor_expense/presentation/widgets/w_categories.dart';
 import 'package:toolpor_expense/presentation/widgets/w_detail_items.dart';
 import 'package:toolpor_expense/presentation/widgets/w_edit_item.dart';
-
 import '../../resources/app_icons.dart';
 
 class EditItem extends StatefulWidget {

@@ -1,3 +1,4 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -116,11 +117,37 @@ class _IncomeScreenState extends State<IncomeScreen> {
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 400,
-                      width: 400,
-                      child: WLineChart(),
-                    )
+                    BlocBuilder<MyCubit, MyState>(
+                      builder: (context, state) {
+                        if (state is UsersLoaded) {
+                          List<FlSpot> flSpot = [];
+                          flSpot.clear();
+                          for(var i=0 ; i< state.users.length ; i++){
+                            if(state.users[i].money>0){
+                              flSpot.add(FlSpot(i.toDouble(), state.users[i].money.toDouble()));
+                            }
+                          }
+                          return  Container(
+                            height: 400,
+                            width: 400,
+                            padding: const EdgeInsets.only(bottom: 12),
+                            child: WLineChart(
+                              lineChartBarData: LineChartBarData(
+                                spots: flSpot,
+                                isCurved: true,
+                                barWidth: 3,
+                                dotData: const FlDotData(show: false),
+                                belowBarData: BarAreaData(
+                                  show: true,
+                                ),
+                              ),
+                            ),
+                          );
+                        } else {
+                          return const SizedBox();
+                        }
+                      },
+                    ),
                   ],
                 ),
               ),
