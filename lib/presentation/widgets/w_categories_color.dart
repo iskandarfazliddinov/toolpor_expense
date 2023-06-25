@@ -149,7 +149,7 @@ class WCategoriesColor extends StatelessWidget {
                                   ),
                                   SizedBox(
                                     width: double.infinity,
-                                    height: 380,
+                                    height: 400,
                                     child: GridView.builder(
                                       gridDelegate:
                                           const SliverGridDelegateWithFixedCrossAxisCount(
@@ -193,43 +193,44 @@ class WCategoriesColor extends StatelessWidget {
                                       },
                                     ),
                                   ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      myDataNotifier.updateData(
-                                        MyData(
-                                          icon: icons[_index],
-                                          title: '',
+                                  Expanded(
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        myDataNotifier.updateData(
+                                          MyData(
+                                            icon: icons[_index],
+                                            title: '',
+                                          ),
+                                        );
+                                        Navigator.pop(context);
+                                      },
+                                      child: Container(
+                                        width: double.infinity,
+                                        height: 50,
+                                        margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(12),
+                                          gradient: const LinearGradient(
+                                            begin: Alignment.centerLeft,
+                                            end: Alignment.centerRight,
+                                            colors: [
+                                              Color(0xFF1CD8D2),
+                                              // Start color (#1CD8D2)
+                                              Color(0xFF93EDC7),
+                                              // End color (#93EDC7)
+                                            ],
+                                            stops: [0.0, 1.0],
+                                            // Adjust the stops as needed
+                                            transform: GradientRotation(
+                                                90), // Set the desired angle
+                                          ),
                                         ),
-                                      );
-                                      Navigator.pop(context);
-                                    },
-                                    child: Container(
-                                      width: double.infinity,
-                                      height: 50,
-                                      margin: const EdgeInsets.symmetric(
-                                          horizontal: 20),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(12),
-                                        gradient: const LinearGradient(
-                                          begin: Alignment.centerLeft,
-                                          end: Alignment.centerRight,
-                                          colors: [
-                                            Color(0xFF1CD8D2),
-                                            // Start color (#1CD8D2)
-                                            Color(0xFF93EDC7),
-                                            // End color (#93EDC7)
-                                          ],
-                                          stops: [0.0, 1.0],
-                                          // Adjust the stops as needed
-                                          transform: GradientRotation(
-                                              90), // Set the desired angle
-                                        ),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          "Belgi tanlash",
-                                          style: AppStyles.getItems()
-                                              .copyWith(color: Colors.black),
+                                        child: Center(
+                                          child: Text(
+                                            "Belgi tanlash",
+                                            style: AppStyles.getItems()
+                                                .copyWith(color: Colors.black),
+                                          ),
                                         ),
                                       ),
                                     ),

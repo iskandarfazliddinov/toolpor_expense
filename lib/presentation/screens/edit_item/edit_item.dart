@@ -22,18 +22,18 @@ class EditItem extends StatefulWidget {
   final bool changes;
   final Color color;
 
-  const EditItem(
-      {required this.title,
-      required this.categories,
-      required this.date,
-      required this.description,
-      required this.money,
-      required this.icon,
-      required this.index,
-      required this.changes,
-      required this.color,
-      super.key,
-      });
+  const EditItem({
+    required this.title,
+    required this.categories,
+    required this.date,
+    required this.description,
+    required this.money,
+    required this.icon,
+    required this.index,
+    required this.changes,
+    required this.color,
+    super.key,
+  });
 
   @override
   State<EditItem> createState() => _EditItemState();
@@ -161,18 +161,26 @@ class _EditItemState extends State<EditItem> {
                             Row(
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 20.0),
+                                  padding: const EdgeInsets.only(left: 20.0),
                                   child: Container(
                                     height: 40,
                                     width: 40,
-                                    padding: EdgeInsets.all((catigroyIndex == null && widget.color == Colors.white) || (catigroyIndex != null && categoryData[catigroyIndex!].color == Colors.white) ? 0 :8),
+                                    padding: EdgeInsets.all((catigroyIndex ==
+                                                    null &&
+                                                widget.color == Colors.white) ||
+                                            (catigroyIndex != null &&
+                                                categoryData[catigroyIndex!]
+                                                        .color ==
+                                                    Colors.white)
+                                        ? 0
+                                        : 8),
                                     decoration: BoxDecoration(
                                         color: catigroyIndex == null
                                             ? widget.color
-                                            : categoryData[catigroyIndex!].color,
-                                        borderRadius: BorderRadius.circular(44)
-                                    ),
+                                            : categoryData[catigroyIndex!]
+                                                .color,
+                                        borderRadius:
+                                            BorderRadius.circular(44)),
                                     child: SvgPicture.asset(
                                       catigroyIndex == null
                                           ? widget.icon
@@ -180,7 +188,7 @@ class _EditItemState extends State<EditItem> {
                                     ),
                                   ),
                                 ),
-                                const SizedBox(width:12),
+                                const SizedBox(width: 12),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 16.0),
@@ -246,24 +254,65 @@ class _EditItemState extends State<EditItem> {
           ),
           GestureDetector(
             onTap: () {
-              context.read<MyCubit>().editUser(
-                    widget.index,
-                    User(
-                        category: catigroyIndex == null
-                            ? widget.categories
-                            : categoryData[catigroyIndex!].title,
+              if (catigroyIndex == null &&
+                  controllerDescription.text.isNotEmpty &&
+                  controllerTitle.text.isNotEmpty &&
+                  moneyController.text.isNotEmpty) {
+                print("1");
+                context.read<MyCubit>().editUser(
+                      widget.index,
+                      User(
+                        category: widget.categories,
                         calendar: _dateTime,
                         title: controllerTitle.text,
                         description: controllerDescription.text,
                         money: int.parse(moneyController.text),
-                        icon: catigroyIndex == null
-                            ? widget.icon
-                            : categoryData[catigroyIndex!].icon,
+                        icon: widget.icon,
                         changes: widget.changes,
-                      color: categoryData[catigroyIndex!].color,
-                    ),
-                  );
-              Navigator.pop(context);
+                        color: widget.color,
+                      ),
+                    );
+                Navigator.of(context).pop();
+              } else if (catigroyIndex != null &&
+                  controllerDescription.text.isNotEmpty &&
+                  controllerTitle.text.isNotEmpty &&
+                  moneyController.text.isNotEmpty) {
+                print("2");
+                context.read<MyCubit>().editUser(
+                      widget.index,
+                      User(
+                        category: categoryData[catigroyIndex!].title,
+                        calendar: _dateTime,
+                        title: controllerTitle.text,
+                        description: controllerDescription.text,
+                        money: int.parse(moneyController.text),
+                        icon: categoryData[catigroyIndex!].icon,
+                        changes: widget.changes,
+                        color: categoryData[catigroyIndex!].color,
+                      ),
+                    );
+                Navigator.of(context).pop();
+              } else {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text("Ma'lumotlar toliq emas"),
+                      content:
+                          const Text("Iltimos ma'lumotlarni to'liq to'ldiring"),
+                      actions: [
+                        TextButton(
+                          child: const Text('OK'),
+                          onPressed: () {
+                            // Perform action here
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              }
             },
             child: SvgPicture.asset(
               AppIcons.birdie,

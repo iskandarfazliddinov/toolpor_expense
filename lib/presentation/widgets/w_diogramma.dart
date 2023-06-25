@@ -6,8 +6,15 @@ class CircularChart extends StatelessWidget {
   final double expenses;
   final double revenues;
   final int totalCosts;
+  final String text;
 
-  const CircularChart({required this.expenses,required this.revenues,required this.totalCosts,super.key});
+  const CircularChart({
+      required this.expenses,
+      required this.revenues,
+      required this.totalCosts,
+      required this.text,
+      super.key,
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -51,28 +58,36 @@ class CircularChart extends StatelessWidget {
                       const Offset(0.1, 0.1),
                       500,
                       [
-                        const Color(0xFFFF725F),
-                        const Color(0xFFFE9A7B),
+                        expenses <= 0
+                            ? const Color(0xFF1CD8D2)
+                            : const Color(0xFFFF725F),
+                        expenses <= 0
+                            ? const Color(0xFF1CD8D2)
+                            : const Color(0xFFFE9A7B),
                       ],
                     )),
                 PieChartData(
                     const Color(0xFF1CD8D2),
-                    revenues ,
+                    revenues,
                     ui.Gradient.radial(
                       const Offset(0.1, 0.1),
                       500,
                       [
-                        const Color(0xFF1CD8D2),
-                        const Color(0xFF93EDC7),
+                        revenues == 0
+                            ? const Color(0xFFFF725F)
+                            : const Color(0xFF1CD8D2),
+                        revenues == 0
+                            ? const Color(0xFFFF725F)
+                            : const Color(0xFF1CD8D2),
                       ],
                     )),
               ],
               radius: 60,
-              child:  Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
-                    'Xarajatlar',
+                  Text(
+                    text,
                     style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
@@ -148,14 +163,14 @@ class _Painter extends CustomPainter {
   _Painter(double strokeWidth, List<PieChartData> data) {
     dataList = data
         .map((e) => _PainterData(
-      Paint()
-        ..shader = e.gradient
-        ..color = e.color
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = strokeWidth
-        ..strokeCap = StrokeCap.round,
-      (e.percent - _padding) * _percentInRadians,
-    ))
+              Paint()
+                ..shader = e.gradient
+                ..color = e.color
+                ..style = PaintingStyle.stroke
+                ..strokeWidth = strokeWidth
+                ..strokeCap = StrokeCap.round,
+              (e.percent - _padding) * _percentInRadians,
+            ))
         .toList();
   }
 
@@ -189,9 +204,9 @@ class _Painter extends CustomPainter {
 
 class ChartData {
   ChartData(
-      this.color,
-      this.percent,
-      );
+    this.color,
+    this.percent,
+  );
 
   final Color color;
   final double percent;
@@ -227,25 +242,18 @@ class ChartShadow extends StatelessWidget {
   }
 }
 
-class _PainterDataShadow {
-  const _PainterDataShadow(this.paint, this.radians);
-
-  final Paint paint;
-  final double radians;
-}
-
 class _PainterShadow extends CustomPainter {
   _PainterShadow(double strokeWidth, List<ChartData> data) {
     dataList = data
         .map((e) => _PainterData(
-      Paint()
-        ..color = e.color
-        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 30)
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = strokeWidth
-        ..strokeCap = StrokeCap.round,
-      (e.percent) * _percentInRadians,
-    ))
+              Paint()
+                ..color = e.color
+                ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 30)
+                ..style = PaintingStyle.stroke
+                ..strokeWidth = strokeWidth
+                ..strokeCap = StrokeCap.round,
+              (e.percent) * _percentInRadians,
+            ))
         .toList();
   }
 

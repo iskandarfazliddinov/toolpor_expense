@@ -15,6 +15,7 @@ class WCategoryItems extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 24.0, top: 20),
       child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
         onTap: onTab,
         child: Row(
           children: [

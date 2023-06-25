@@ -8,15 +8,24 @@ import 'package:toolpor_expense/presentation/screens/cubits/my_cubit/my_cubit.da
 import 'package:toolpor_expense/presentation/screens/dialog_screen/dialog_screen.dart';
 import 'package:toolpor_expense/presentation/screens/income_screen/income_screen.dart';
 import 'package:toolpor_expense/presentation/widgets/w_diogramma.dart';
+import 'package:menu_button/menu_button.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
+
+
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  String selectedKey = "Xarajat";
+
+  List<String> keys = <String>[
+    'Xarajat',
+    'Daromad',
+  ];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -73,34 +82,85 @@ class _HomeScreenState extends State<HomeScreen> {
                           "Hisobot",
                           style: AppStyles.getItems(),
                         ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 4, horizontal: 8),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: const Color(0xFF292B2F),
-                              // Set the desired border color here
-                              width: 1, // Set the desired border width
-                            ),
-                            borderRadius: BorderRadius.circular(6),
+                        MenuButton<String>(
+                          items: keys,
+                          itemBuilder: (String value) => Container(
+                            decoration: const BoxDecoration(color: AppColors.mainColor),
+                            height: 40,
+                            alignment: Alignment.centerLeft,
+                            padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 16),
+                            child: Text(value),
                           ),
-                          child: const Row(
-                            children: [
-                              Text(
-                                "Xarajat",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(
-                                    0xFFB2B3B7,
+                          toggledChild: Container(
+                            decoration: const BoxDecoration(
+                                color: AppColors.mainColor
+                            ),
+                            width: 93,
+                            height: 40,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 16, right: 11),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Flexible(
+                                      child: Text(selectedKey, overflow: TextOverflow.ellipsis)
                                   ),
-                                ),
+                                  Container(
+                                    decoration: const BoxDecoration(
+                                        color: AppColors.mainColor
+                                    ),
+                                    width: 12,
+                                    height: 17,
+                                    child: const FittedBox(
+                                      fit: BoxFit.fill,
+                                      child: Icon(
+                                        Icons.arrow_drop_down,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              Icon(
-                                Icons.arrow_drop_down,
-                                color: Color(0xFFB2B3B7),
+                            ),
+                          ),
+                          onItemSelected: (String value) {
+                            setState(() {
+                              selectedKey = value;
+                            });
+                          },
+                          onMenuButtonToggle: (bool isToggle) {
+                          },
+                          child: Container(
+                            decoration: const BoxDecoration(
+                                color: AppColors.mainColor
+                            ),
+                            width: 93,
+                            height: 40,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 16, right: 11),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Flexible(
+                                      child: Text(selectedKey, overflow: TextOverflow.ellipsis)
+                                  ),
+                                  Container(
+                                    decoration: const BoxDecoration(
+                                        color: AppColors.mainColor
+                                    ),
+                                    width: 12,
+                                    height: 17,
+                                    child: const FittedBox(
+                                      fit: BoxFit.fill,
+                                      child: Icon(
+                                        Icons.arrow_drop_down,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
                         )
                       ],
@@ -113,6 +173,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         double expenses = 0;
                         double revenues = 0;
                         double expensesAll = 0;
+                        double revenuesAll = 0;
 
                           for (var index = 0; index < state.users.length; index++) {
                             if(state.users[index].money <0){
@@ -123,6 +184,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           }
                           expenses = expenses *(-1);
                           expensesAll = expenses;
+                          revenuesAll = revenues;
                           totalCosts = (expenses+revenues);
                           expenses = expenses*100/totalCosts;
                           revenues = revenues*100/totalCosts;
@@ -132,12 +194,19 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: CircularChart(
                             expenses: expenses,
                             revenues: revenues,
-                            totalCosts: expensesAll.toInt(),
+                            totalCosts: selectedKey == "Xarajat" ? expensesAll.toInt() : revenuesAll.toInt(),
+                            text:selectedKey ,
                           ),
                         );
                       } else {
-                        return const SizedBox(
+                        return SizedBox(
                           height: 300,
+                          child: CircularChart(
+                            expenses: 50,
+                            revenues: 50,
+                            totalCosts: 0,
+                            text: selectedKey,
+                          ),
                         );
                       }
                     },
@@ -331,5 +400,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+
   }
+
 }

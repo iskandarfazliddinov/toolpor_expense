@@ -82,54 +82,58 @@ class _IncomeScreenState extends State<IncomeScreen> {
                 ),
                 child: Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 22, horizontal: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Statistika",
-                            style: AppStyles.getItems(),
-                          ),
-                          BlocBuilder<MyCubit, MyState>(
-                            builder: (context, state) {
-                              if (state is UsersLoaded) {
-                                double totalCosts = 0;
-                                for (var index = 0; index < state.users.length; index++) {
-                                  if(widget.boolType){
-                                    if(state.users[index].money>0){
-                                      totalCosts += state.users[index].money;
-                                    }
-                                  }else if(state.users[index].money<0){
-                                    totalCosts += state.users[index].money;
-                                  }
-
-                                }
-                                return Text(
-                                  "$totalCosts so’m",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w700,
-                                    color: totalCosts > 0
-                                        ? const Color(0xFF93EDC7)
-                                        : const Color(0xFFFE9A7B),
-                                  ),
-                                );
-                              } else {
-                                return const SizedBox();
+                    BlocBuilder<MyCubit, MyState>(
+                      builder: (context, state) {
+                        if (state is UsersLoaded) {
+                          double totalCosts = 0;
+                          for (var index = 0; index < state.users.length; index++) {
+                            if(widget.boolType){
+                              if(state.users[index].money>0){
+                                totalCosts += state.users[index].money;
                               }
-                            },
-                          ),
-                        ],
-                      ),
+                            }else if(state.users[index].money<0){
+                              totalCosts += state.users[index].money;
+                            }
+
+                          }
+                          return Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 22, horizontal: 20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Statistika",
+                                      style: AppStyles.getItems(),
+                                    ),
+                                    Text(
+                                      "$totalCosts so’m",
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w700,
+                                        color: totalCosts > 0
+                                            ? const Color(0xFF93EDC7)
+                                            : const Color(0xFFFE9A7B),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
+                        } else {
+                          return const SizedBox();
+                        }
+                      },
                     ),
                     BlocBuilder<MyCubit, MyState>(
                       builder: (context, state) {
                         if (state is UsersLoaded) {
                           List<FlSpot> flSpot = [];
                           flSpot.clear();
-                          var j = 0 , k = 0;
+                          var j = 1 , k = 1;
+                          flSpot.add(const FlSpot(0.0, 0.0));
                           for(var i=0 ; i< state.users.length ; i++){
                             if(widget.boolType){
                               if(state.users[i].money>0){
@@ -142,7 +146,7 @@ class _IncomeScreenState extends State<IncomeScreen> {
                             }
                           }
                           return  Container(
-                            height: 400,
+                            height: 350,
                             width: 400,
                             padding: const EdgeInsets.only(bottom: 12),
                             child: WLineChart(
@@ -158,7 +162,7 @@ class _IncomeScreenState extends State<IncomeScreen> {
                             ),
                           );
                         } else {
-                          return const SizedBox(height: 300,);
+                          return const SizedBox();
                         }
                       },
                     ),
@@ -167,6 +171,7 @@ class _IncomeScreenState extends State<IncomeScreen> {
               ),
             ),
             Container(
+              alignment: Alignment.bottomCenter,
               decoration: const BoxDecoration(
                 color: AppColors.mainColor,
                 borderRadius: BorderRadius.only(
@@ -175,93 +180,95 @@ class _IncomeScreenState extends State<IncomeScreen> {
                 ),
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.only(top: 20.0),
-                    child: Divider(
-                        color: Color(0xFFB2B3B7),
-                        endIndent: 180,
-                        thickness: 2,
-                        indent: 180),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Text(
-                      "Oxirgi xarajatlar",
-                      style: AppStyles.getItems(),
-                    ),
-                  ),
                   BlocBuilder<MyCubit, MyState>(
                     builder: (context, state) {
                       if (state is UsersLoaded) {
-                        return SizedBox(
-                          height: 200,
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: state.users.length,
-                            itemBuilder: (context, index) => WItems(
-                                onTab: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ItemDetail(
-                                        title: state.users[index].title,
-                                        categories: state.users[index].category,
-                                        data: state.users[index].calendar,
-                                        description:
-                                            state.users[index].description,
-                                        money: state.users[index].money,
-                                        icons: state.users[index].icon,
-                                        color: state.users[index].color,
-                                      ),
-                                    ),
-                                  );
-                                },
-                                contexts: context,
-                                title: state.users[index].title,
-                                calendar: state.users[index].calendar,
-                                money: state.users[index].money,
-                                icon: state.users[index].icon,
-                                changes: state.users[index].changes,
-                                onPresDel: (BuildContext context) {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext contexts) {
-                                      return WDialog(
-                                        text:
-                                            'Haqiqatan ham bu elementni\no’chirib tashlamoqchimisiz?',
-                                        dialogText: 'O’chirish',
-                                        dColor: const Color(0xFFCC2D63),
-                                        index: index,
-                                      );
-                                    },
-                                  );
-                                },
-                                onPresEdit: (BuildContext context) {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => EditItem(
-                                        title: state.users[index].title,
-                                        categories: state.users[index].category,
-                                        date: state.users[index].calendar,
-                                        description:
-                                            state.users[index].description,
-                                        money: state.users[index].money,
-                                        icon: state.users[index].icon,
-                                        index: index,
-                                        changes: state.users[index].changes, color: state.users[index].color,
-                                      ),
-                                    ),
-                                  );
-                                },
-                                color: state.users[index].color,
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.only(top: 20.0),
+                              child: Divider(
+                                  color: Color(0xFFB2B3B7),
+                                  endIndent: 180,
+                                  thickness: 2,
+                                  indent: 180),
                             ),
-                          ),
+                            Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Text(
+                                "Oxirgi xarajatlar",
+                                style: AppStyles.getItems(),
+                              ),
+                            ),
+                            ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: state.users.length,
+                              itemBuilder: (context, index) => WItems(
+                                  onTab: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ItemDetail(
+                                          title: state.users[index].title,
+                                          categories: state.users[index].category,
+                                          data: state.users[index].calendar,
+                                          description:
+                                              state.users[index].description,
+                                          money: state.users[index].money,
+                                          icons: state.users[index].icon,
+                                          color: state.users[index].color,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  contexts: context,
+                                  title: state.users[index].title,
+                                  calendar: state.users[index].calendar,
+                                  money: state.users[index].money,
+                                  icon: state.users[index].icon,
+                                  changes: state.users[index].changes,
+                                  onPresDel: (BuildContext context) {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext contexts) {
+                                        return WDialog(
+                                          text:
+                                              'Haqiqatan ham bu elementni\no’chirib tashlamoqchimisiz?',
+                                          dialogText: 'O’chirish',
+                                          dColor: const Color(0xFFCC2D63),
+                                          index: index,
+                                        );
+                                      },
+                                    );
+                                  },
+                                  onPresEdit: (BuildContext context) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => EditItem(
+                                          title: state.users[index].title,
+                                          categories: state.users[index].category,
+                                          date: state.users[index].calendar,
+                                          description:
+                                              state.users[index].description,
+                                          money: state.users[index].money,
+                                          icon: state.users[index].icon,
+                                          index: index,
+                                          changes: state.users[index].changes, color: state.users[index].color,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  color: state.users[index].color,
+                              ),
+                            ),
+                            const SizedBox(height: 24,)
+                          ],
                         );
                       } else {
-                        return const SizedBox(height: 200,);
+                        return const SizedBox();
                       }
                     },
                   ),

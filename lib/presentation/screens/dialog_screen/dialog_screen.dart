@@ -48,7 +48,7 @@ class _DialogScreenState extends State<DialogScreen> {
       lastDate: DateTime(2025),
     ).then((value) => {
           setState(() {
-              _dateTime = value!;
+            _dateTime = value!;
           })
         });
   }
@@ -66,225 +66,257 @@ class _DialogScreenState extends State<DialogScreen> {
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const Divider(
-                color: Colors.white,
-                endIndent: 160,
-                thickness: 2,
-                indent: 160,
+        child: Column(
+          children: [
+            const Divider(
+              color: Colors.white,
+              endIndent: 160,
+              thickness: 2,
+              indent: 160,
+            ),
+            TextField(
+              textAlign: TextAlign.center,
+              controller: controller,
+              keyboardType: TextInputType.number,
+              style: TextStyle(
+                color: widget.change
+                    ? const Color(0xFF93EDC7)
+                    : const Color(0xFFFE9A7B),
+                fontWeight: FontWeight.w600,
+                fontSize: 28,
               ),
-              TextField(
-                textAlign: TextAlign.center,
-                controller: controller,
-                keyboardType: TextInputType.number,
-                style: TextStyle(
-                  color: widget.change
-                      ? const Color(0xFF93EDC7)
-                      : const Color(0xFFFE9A7B),
-                  fontWeight: FontWeight.w600,
-                  fontSize: 28,
-                ),
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  errorBorder: InputBorder.none,
-                  disabledBorder: InputBorder.none,
-                ),
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+                focusedBorder: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                errorBorder: InputBorder.none,
+                disabledBorder: InputBorder.none,
               ),
-              const Text(
-                "Summani kiriting",
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xFFB2B3B7),
-                ),
+            ),
+            const Text(
+              "Summani kiriting",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: Color(0xFFB2B3B7),
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 8),
-                  GestureDetector(
-                    onTap: updateCatigoryData,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: AppColors.mainColor,
-                        borderRadius: BorderRadius.circular(
-                          12.0,
-                        ),
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 8),
+                GestureDetector(
+                  onTap: updateCatigoryData,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.mainColor,
+                      borderRadius: BorderRadius.circular(
+                        12.0,
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: catigroyIndex == null ? 0 : 20.0),
-                                child: Container(
-                                  height: 40,
-                                  width: 40,
-                                  decoration: BoxDecoration(
-                                      color: catigroyIndex != null && categoryData[catigroyIndex!].color != Colors.white? categoryData[catigroyIndex!].color: AppColors.mainColor,
-                                      borderRadius: BorderRadius.circular(44)
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsets.all(catigroyIndex != null && categoryData[catigroyIndex!].color != Colors.white ? 8 : 0),
-                                    child: catigroyIndex != null ? SvgPicture.asset(
-                                      catigroyIndex == null
-                                          ? ''
-                                          : categoryData[catigroyIndex!].icon,
-                                    ):const SizedBox(),
-                                  ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: catigroyIndex == null ? 0 : 20.0),
+                              child: Container(
+                                height: 40,
+                                width: 40,
+                                decoration: BoxDecoration(
+                                    color: catigroyIndex != null &&
+                                            categoryData[catigroyIndex!]
+                                                    .color !=
+                                                Colors.white
+                                        ? categoryData[catigroyIndex!].color
+                                        : AppColors.mainColor,
+                                    borderRadius: BorderRadius.circular(44)),
+                                child: Padding(
+                                  padding: EdgeInsets.all(catigroyIndex !=
+                                              null &&
+                                          categoryData[catigroyIndex!].color !=
+                                              Colors.white
+                                      ? 8
+                                      : 0),
+                                  child: catigroyIndex != null
+                                      ? SvgPicture.asset(
+                                          catigroyIndex == null
+                                              ? ''
+                                              : categoryData[catigroyIndex!]
+                                                  .icon,
+                                        )
+                                      : const SizedBox(),
                                 ),
                               ),
-                              SizedBox(width: catigroyIndex == null ? 0 :12),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 16.0),
-                                child: Text(
-                                  catigroyIndex == null
-                                      ? 'Kategoriyani tanlang'
-                                      : categoryData[catigroyIndex!].title,
-                                  style: AppStyles.getItems(),
-                                ),
+                            ),
+                            SizedBox(width: catigroyIndex == null ? 0 : 12),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 16.0),
+                              child: Text(
+                                catigroyIndex == null
+                                    ? 'Kategoriyani tanlang'
+                                    : categoryData[catigroyIndex!].title,
+                                style: AppStyles.getItems(),
                               ),
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 16),
-                            child: SvgPicture.asset(AppIcons.down),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 16),
+                          child: SvgPicture.asset(AppIcons.down),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+            WDetailItems(
+              subTitle: "",
+              title: "${_dateTime.day}.${_dateTime.month}.${_dateTime.year}",
+              appIcons: AppIcons.calendar,
+              iconDow: AppIcons.down,
+              onTab: () {
+                _showDataPicer();
+              },
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(top: 20.0),
+                  child: Text(
+                    "Sarlavha",
+                    style: TextStyle(
+                      color: Color(0xFFB2B3B7),
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                TextField(
+                  style: const TextStyle(color: Colors.white),
+                  controller: titleController,
+                  maxLines: 1,
+                  decoration: InputDecoration(
+                    hintText: "Sarlavha",
+                    hintStyle: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xFFB2B3B7),
+                    ),
+                    filled: true,
+                    fillColor: AppColors.mainColor,
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(12)),
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(top: 20.0),
+                  child: Text(
+                    "Tavsif bering",
+                    style: TextStyle(
+                      color: Color(0xFFB2B3B7),
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                TextField(
+                  style: const TextStyle(color: Colors.white),
+                  controller: descriptionController,
+                  maxLines: 2,
+                  decoration: InputDecoration(
+                    hintText: "Shu yerga yozing",
+                    hintStyle: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xFFB2B3B7),
+                    ),
+                    filled: true,
+                    fillColor: AppColors.mainColor,
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(12)),
+                  ),
+                ),
+              ],
+            ),
+            GestureDetector(
+              onTap: () {
+                if (catigroyIndex != null &&
+                    controller.text != "" &&
+                    descriptionController.text != "" &&
+                    titleController.text != "") {
+                  context.read<MyCubit>().addUser(
+                        User(
+                          calendar: _dateTime,
+                          category: categoryData[catigroyIndex!].title,
+                          description: descriptionController.text,
+                          money: widget.change
+                              ? int.parse(controller.text)
+                              : int.parse(controller.text) * (-1),
+                          title: titleController.text,
+                          icon: categoryData[catigroyIndex!].icon,
+                          changes: widget.change,
+                          color: categoryData[catigroyIndex!].color,
+                        ),
+                      );
+                  Navigator.of(context).pop();
+                } else {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text("Ma'lumotlar toliq emas"),
+                        content: const Text(
+                            "Iltimos ma'lumotlarni to'liq to'ldiring"),
+                        actions: [
+                          TextButton(
+                            child: const Text('OK'),
+                            onPressed: () {
+                              // Perform action here
+                              Navigator.of(context).pop();
+                            },
                           ),
                         ],
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              WDetailItems(
-                subTitle: "",
-                title: "${_dateTime.day}.${_dateTime.month}.${_dateTime.year}",
-                appIcons: AppIcons.calendar,
-                iconDow: AppIcons.down,
-                onTab: () {
-                  _showDataPicer();
-                },
-              ),
-              Column(
-               mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-              const Padding(
-                padding: EdgeInsets.only(top: 20.0),
-                child: Text(
-                  "Sarlavha",
-                  style: TextStyle(
-                    color: Color(0xFFB2B3B7),
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w600,
+                      );
+                    },
+                  );
+                }
+              },
+              child: Container(
+                width: double.infinity,
+                margin: const EdgeInsets.symmetric(vertical: 12),
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                decoration: BoxDecoration(
+                    color: widget.change
+                        ? const Color(0xFF93EDC7)
+                        : const Color(0xFFFE9A7B),
+                    borderRadius: BorderRadius.circular(12)),
+                child: Center(
+                  child: Text(
+                    "Ro’yxatga qo’shish",
+                    style: AppStyles.getItems().copyWith(color: Colors.black),
                   ),
                 ),
               ),
-              const SizedBox(height: 8),
-              TextField(
-                style: const TextStyle(color: Colors.white),
-                controller: titleController,
-                maxLines: 1,
-                decoration: InputDecoration(
-                  hintText: "Sarlavha",
-                  hintStyle: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xFFB2B3B7),
-                  ),
-                  filled: true,
-                  fillColor: AppColors.mainColor,
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(12)),
-                ),
-              ),
-            ],
-          ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(top: 20.0),
-                    child: Text(
-                      "Tavsif bering",
-                      style: TextStyle(
-                        color: Color(0xFFB2B3B7),
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  TextField(
-                    style: const TextStyle(color: Colors.white),
-                    controller: descriptionController,
-                    maxLines: 2,
-                    decoration: InputDecoration(
-                      hintText: "Shu yerga yozing",
-                      hintStyle: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xFFB2B3B7),
-                      ),
-                      filled: true,
-                      fillColor: AppColors.mainColor,
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(12)),
-                    ),
-                  ),
-                ],
-              ),
-              GestureDetector(
-                onTap: () {
-                  if (catigroyIndex != null &&
-                      controller.text != "" &&
-                      descriptionController.text != "" &&
-                      titleController.text != "") {
-                    context.read<MyCubit>().addUser(
-                          User(
-                              calendar: _dateTime,
-                              category: categoryData[catigroyIndex!].title,
-                              description: descriptionController.text,
-                              money: widget.change ? int.parse(controller.text):int.parse(controller.text)*(-1),
-                              title: titleController.text,
-                              icon: categoryData[catigroyIndex!].icon,
-                              changes: widget.change,
-                              color: categoryData[catigroyIndex!].color,
-                          ),
-                        );
-                    Navigator.of(context).pop();
-                  }
-                },
-                child: Container(
-                  width: double.infinity,
-                  margin: const EdgeInsets.symmetric(vertical: 12),
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  decoration: BoxDecoration(
-                      color: widget.change
-                          ? const Color(0xFF93EDC7)
-                          : const Color(0xFFFE9A7B),
-                      borderRadius: BorderRadius.circular(12)),
-                  child: Center(
-                    child: Text(
-                      "Ro’yxatga qo’shish",
-                      style: AppStyles.getItems().copyWith(color: Colors.black),
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );

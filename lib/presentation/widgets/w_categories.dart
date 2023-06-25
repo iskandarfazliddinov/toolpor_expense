@@ -25,8 +25,7 @@ class WCategories extends StatelessWidget {
         bottom: MediaQuery.of(context).viewInsets.bottom,
       ),
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.6,
-        margin: const EdgeInsets.symmetric(horizontal: 16),
+        height: MediaQuery.of(context).size.height * 0.65,
         decoration: const BoxDecoration(
           color: AppColors.mainColor,
           borderRadius: BorderRadius.only(
